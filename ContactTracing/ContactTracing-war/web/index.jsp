@@ -16,19 +16,19 @@
          
         <h2>Burger?</h2>
          <form action="ResController" method="Post">       
-                <input type="hidden" name="verstopt" value="burger">
+                <input type="hidden" name="sub" value="burger">
                 <input type="Submit" value="Burger?">
         </form>
         </form> 
         <h2>Arts?</h2>
          <form action="ResController" method="Post">       
-                <input type="hidden" name="verstopt" value="arts">
+                <input type="hidden" name="sub" value="arts">
                 <input type="Submit" value="Arts?">
         </form>
         </form> 
         <h2>Registreer?</h2>
          <form action="ResController" method="Post">       
-                <input type="hidden" name="verstopt" value="registreer">
+                <input type="hidden" name="sub" value="registreer">
                 <input type="Submit" value="registreer?">
         </form>
         

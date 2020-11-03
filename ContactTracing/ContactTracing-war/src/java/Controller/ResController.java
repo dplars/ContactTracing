@@ -48,16 +48,7 @@ public class ResController extends HttpServlet {
             out.println("</html>");
         }
         
-        switch (request.getParameter("sub")) {
-            case "doorgaan":
-                // komende van arts.jsp, gaande naar artsoverzicht.jsp
-                String testnr = request.getParameter("testnr");
-                // gegevens opslaan in session variabelen
-                request.getSession(true).setAttribute("testnr", testnr);
-                // naar klant.jsp gaan in plaats van naar reserveer.jsp
-                goToPage("artsoverzicht.jsp", request, response);
-                break;
-        }
+        
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -84,36 +75,47 @@ public class ResController extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
     HttpSession sessie = request.getSession(true);    
-    String verstopt = request.getParameter("verstopt");
-    if(verstopt.equals("naarReserveer") || verstopt.equals("nieuwReserveer")){
-        if (sessie.getAttribute("klantnummer") == null) //de klant bestaat nog niet in de sessie
-            {
+
+    
+    
+    switch (request.getParameter("sub")) {
+                      
+            case "naarReserveer":
+            case "nieuwReserveer":
+                if (sessie.getAttribute("klantnummer") == null) //de klant bestaat nog niet in de sessie
+                {
                 String klantnummer = request.getParameter("klantnummer");
                 sessie.setAttribute("klantnummer",klantnummer);
-            }
+                }
    
-        gotoPage("reserveer.jsp",request,response);
-     
-    }
-    else if(verstopt.equals("registreer")){
-        gotoPage("registreer.jsp",request,response);
-      
-    }
-    else if(verstopt.equals("burger")){
-     
-        gotoPage("burger.jsp",request,response);
-      
-    }
-    else if(verstopt.equals("arts")){
-      
-        gotoPage("arts.jsp",request,response);
-      
-    }
-    else if(verstopt.equals("afbreken")){
-        sessie.invalidate();
-        response.sendRedirect("index.jsp");
-        
-    }
+                gotoPage("reserveer.jsp",request,response);
+                break;
+            case "registreer":    
+                gotoPage("registreer.jsp",request,response);
+                break;
+            case "burger":    
+                gotoPage("burger.jsp",request,response);
+                break;
+            case "arts":    
+                gotoPage("arts.jsp",request,response);
+                break;
+            case "doorgaan":
+                // komende van arts.jsp, gaande naar artsoverzicht.jsp
+                String testnr = request.getParameter("testnr");
+                // gegevens opslaan in session variabelen
+                request.getSession(true).setAttribute("testnr", testnr);
+                // naar klant.jsp gaan in plaats van naar reserveer.jsp
+                goToPage("artsoverzicht.jsp", request, response);
+                break;
+            case "nieuwAccount":
+                response.sendRedirect("index.jsp");
+                break;
+            case "afbreken":  
+                sessie.invalidate();
+                response.sendRedirect("index.jsp");
+                break;
+        }
+  
     }
     
     public void gotoPage(String page,HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{

@@ -22,7 +22,7 @@
             <label for="testnegatief">Negatief</label>
             <input type="radio" id="testnegatief" name="testresultaat" value="negatief"/>
             
-            <input type="submit" name="sub" value="Doorgaan"/>
+            <input type="submit" name="sub" value="doorgaan"/>
         </form>
     </body>
     

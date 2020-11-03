@@ -15,7 +15,7 @@
     <body>
             
         <form style="margin-top:20px;" action="<c:url value='ResController'/>" method="Post">
-            <input type="hidden" name="verstopt" value="afbreken">
+            <input type="hidden" name="sub" value="afbreken">
             <input type="Submit" value="Log uit">
         </form>
 

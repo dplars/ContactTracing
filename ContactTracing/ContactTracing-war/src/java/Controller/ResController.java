@@ -96,9 +96,23 @@ public class ResController extends HttpServlet {
      
     }
     else if(verstopt.equals("registreer")){
-        sessie.setAttribute("klantnummer",99999);
         gotoPage("registreer.jsp",request,response);
       
+    }
+    else if(verstopt.equals("burger")){
+     
+        gotoPage("burger.jsp",request,response);
+      
+    }
+    else if(verstopt.equals("arts")){
+      
+        gotoPage("arts.jsp",request,response);
+      
+    }
+    else if(verstopt.equals("afbreken")){
+        sessie.invalidate();
+        response.sendRedirect("index.jsp");
+        
     }
     }
     

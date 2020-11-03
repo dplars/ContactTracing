@@ -25,4 +25,6 @@
             <input type="submit" name="sub" value="Doorgaan"/>
         </form>
     </body>
+    
+    <jsp:include page="footer.jsp"/>
 </html>

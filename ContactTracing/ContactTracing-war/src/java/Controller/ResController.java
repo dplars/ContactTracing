@@ -7,6 +7,7 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,6 +42,17 @@ public class ResController extends HttpServlet {
             out.println("<h1>Servlet ResController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+        }
+        
+        switch (request.getParameter("sub")) {
+            case "doorgaan":
+                // komende van arts.jsp, gaande naar artsoverzicht.jsp
+                String testnr = request.getParameter("testnr");
+                // gegevens opslaan in session variabelen
+                request.getSession(true).setAttribute("testnr", testnr);
+                // naar klant.jsp gaan in plaats van naar reserveer.jsp
+                goToPage("artsoverzicht.jsp", request, response);
+                break;
         }
     }
 
@@ -83,4 +95,12 @@ public class ResController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public void goToPage(String jspPage, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // encode url om ook een session id te sturen wanneer geen cookies toegelaten zijn
+        RequestDispatcher view = request.getRequestDispatcher(response.encodeURL(jspPage));
+        view.forward(request, response);
+    }
+    
 }
+

@@ -18,11 +18,17 @@
 <body> 
       
  
+   
+    
+    <h1 style="margin-bottem:10px;"> 
+        Huidige status: <p style="color:green;display:inline;">Veilig </p>
+    </h1> 
+    <br> 
+    <h2>
+        Nieuw contact
+    </h2>
     Naam van contactpersoon:<br>
     <input id="naam" type="text" name="naam" value="Test"><br> 
-    
-  
-    <br> 
     <input type="radio" id="Type1" name="typeContact" value="Type1" checked="checked">
     <label for="Type1">Type1</label><br>
     <input type="radio" id="Type2" name="typeContact" value="Type2">

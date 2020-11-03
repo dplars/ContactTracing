@@ -1,28 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* Loic Dehan Lars De Pauw
  */
 package Controller;
+import java.util.ArrayList;
+
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 /**
- *
- * @author dehan
+ * @author r0714500
  */
 public class ResController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -55,11 +59,9 @@ public class ResController extends HttpServlet {
                 break;
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -70,10 +72,8 @@ public class ResController extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     /**
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -82,14 +82,34 @@ public class ResController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+    HttpSession sessie = request.getSession(true);    
+    String verstopt = request.getParameter("verstopt");
+    if(verstopt.equals("naarReserveer") || verstopt.equals("nieuwReserveer")){
+        if (sessie.getAttribute("klantnummer") == null) //de klant bestaat nog niet in de sessie
+            {
+                String klantnummer = request.getParameter("klantnummer");
+                sessie.setAttribute("klantnummer",klantnummer);
+            }
+   
+        gotoPage("reserveer.jsp",request,response);
+     
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+    else if(verstopt.equals("registreer")){
+        sessie.setAttribute("klantnummer",99999);
+        gotoPage("registreer.jsp",request,response);
+      
+    }
+    }
+    
+    public void gotoPage(String page,HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+        RequestDispatcher view = request.getRequestDispatcher(page);
+        view.forward(request,response);
+    }   
+    public void init(){
+        
+        
+    }    
     @Override
     public String getServletInfo() {
         return "Short description";

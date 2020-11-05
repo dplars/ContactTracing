@@ -27,6 +27,7 @@
             Adres:<input type="text" name="Adres" value=""><br>
             Gemeente:<input type="text" name="GemeenteID" value="">
             <input type="text" name="Gemeente" value=""><br>
+            Telefoonnr.<input type="text" name="nr" value="">
             <input type="hidden" name="sub" value="nieuwAccount"><br>
             <input type="Submit" value="Ok">
             

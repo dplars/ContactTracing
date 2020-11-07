@@ -100,12 +100,12 @@ public class ResController extends HttpServlet {
                 gotoPage("arts.jsp",request,response);
                 break;
             case "doorgaan":
-                // komende van arts.jsp, gaande naar artsoverzicht.jsp
+                // komende van arts.jsp, gaande naar bevestig.jsp
                 String testnr = request.getParameter("testnr");
                 // gegevens opslaan in session variabelen
-                request.getSession(true).setAttribute("testnr", testnr);
+                sessie.setAttribute("testnr", testnr);
                 // naar klant.jsp gaan in plaats van naar reserveer.jsp
-                goToPage("artsoverzicht.jsp", request, response);
+                goToPage("bevestig.jsp", request, response);
                 break;
             case "nieuwAccount":
                 response.sendRedirect("index.jsp");

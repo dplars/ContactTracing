@@ -12,6 +12,13 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Overzicht voor </h1>
+        <h2>Test nummer: ${sessionScope.testnr}</h2>
+        Kloppen deze gegevens?
+        <form id="bevestigform">
+            <button type="submit" value="ntcorrect" name="ntcorrect">Deze gegevens zijn niet correct</button>
+            <button type="submit" value="correct" name="correct">Deze gegevens zijn correct</button>
+            
+        </form>
     </body>
 </html>

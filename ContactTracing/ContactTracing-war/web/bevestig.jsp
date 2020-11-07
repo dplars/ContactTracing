@@ -14,6 +14,9 @@
     <body>
         <h1>Overzicht voor </h1>
         <h2>Test nummer: ${sessionScope.testnr}</h2>
+        
+        Voor klant: ${requestScope.burgernaam}<br>
+        Was de test: ${requestScope.testresultaat}
         Kloppen deze gegevens?
         <form id="bevestigform">
             <button type="submit" value="ntcorrect" name="ntcorrect">Deze gegevens zijn niet correct</button>

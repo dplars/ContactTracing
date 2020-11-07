@@ -1,6 +1,7 @@
 /* Loic Dehan Lars De Pauw
  */
 package Controller;
+import Beans.DBBeanLocal;
 import java.util.ArrayList;
 
 
@@ -12,6 +13,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 
@@ -32,6 +34,9 @@ public class ResController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    @EJB private DBBeanLocal dbbean = null;
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -75,7 +80,6 @@ public class ResController extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
     HttpSession sessie = request.getSession(true);    
-
     
     
     switch (request.getParameter("sub")) {
@@ -102,8 +106,12 @@ public class ResController extends HttpServlet {
             case "doorgaan":
                 // komende van arts.jsp, gaande naar bevestig.jsp
                 String testnr = request.getParameter("testnr");
+                String resultaat = request.getParameter("testresultaat");
                 // gegevens opslaan in session variabelen
                 sessie.setAttribute("testnr", testnr);
+                
+                String burgernaam = dbbean.getTestBurgernaam(Integer.parseInt(testnr));
+                request.setAttribute("burgernaam", burgernaam);
                 // naar klant.jsp gaan in plaats van naar reserveer.jsp
                 goToPage("bevestig.jsp", request, response);
                 break;

@@ -35,7 +35,8 @@ public class ResController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    @EJB private DBBeanLocal dbbean = null;
+    @EJB private DBBeanLocal dbbean;
+    
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -81,24 +82,33 @@ public class ResController extends HttpServlet {
         //processRequest(request, response);
     HttpSession sessie = request.getSession(true);    
     
-    
-    switch (request.getParameter("sub")) {
-                      
-            case "naarReserveer":
-            case "nieuwReserveer":
-                if (sessie.getAttribute("klantnummer") == null) //de klant bestaat nog niet in de sessie
-                {
-                String klantnummer = request.getParameter("klantnummer");
-                sessie.setAttribute("klantnummer",klantnummer);
+    int id; 
+    switch (request.getParameter("sub")) {        
+            case "ingelogd": 
+                id = Integer.parseInt(request.getParameter("id"));
+                sessie.setAttribute("id", id);
+                if(dbbean.isArts(id)&& dbbean.isBurger(id)){
+                    System.out.println("Is beide");
+                    gotoPage("keuze.jsp",request,response);
+                    //naar een keuze pagina 
                 }
-   
-                gotoPage("reserveer.jsp",request,response);
+                else if(dbbean.isArts(id)){
+                    gotoPage("arts.jsp",request,response);
+                }
+                else if(dbbean.isBurger(id)){
+                    gotoBurger(id,"burger.jsp",request,response);
+                }
+                else{
+                    gotoPage("registreer.jsp",request,response);
+                }
                 break;
             case "registreer":    
                 gotoPage("registreer.jsp",request,response);
                 break;
-            case "burger":    
-                gotoPage("burger.jsp",request,response);
+            case "burger":   
+                id = 3;
+                sessie.setAttribute("id", id);             
+                gotoBurger(id,"burger.jsp",request,response);
                 break;
             case "arts":    
                 gotoPage("arts.jsp",request,response);
@@ -108,7 +118,8 @@ public class ResController extends HttpServlet {
                 String testnr = request.getParameter("testnr");
                 String resultaat = request.getParameter("testresultaat");
                 // gegevens opslaan in session variabelen
-                sessie.setAttribute("testnr", testnr);
+               
+                sessie.setAttribute("testnr", testnr); 
                 
                 String burgernaam = dbbean.getTestBurgernaam(Integer.parseInt(testnr));
                 request.setAttribute("burgernaam", burgernaam);
@@ -125,7 +136,13 @@ public class ResController extends HttpServlet {
         }
   
     }
-    
+    public void gotoBurger(int id,String page,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        int score = dbbean.getScore(id);
+        HttpSession sessie = request.getSession(true);
+        sessie.setAttribute("score", score); 
+        System.out.println("Score: "+score);
+        gotoPage("burger.jsp",request,response);
+    }
     public void gotoPage(String page,HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         RequestDispatcher view = request.getRequestDispatcher(page);
         view.forward(request,response);

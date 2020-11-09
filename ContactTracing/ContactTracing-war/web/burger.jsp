@@ -16,12 +16,13 @@
 </head> 
   
 <body> 
-      
- 
-   
+        
     
     <h1 style="margin-bottem:10px;"> 
-        Huidige status: <p style="color:green;display:inline;">Veilig </p>
+        Huidige score: ${sessionScope.score}
+        
+ 
+        Huidige status: <label id = "STATUS"><p id = "STATUS" style="color:green;display:inline;">Veilig </p></label> 
     </h1> 
     <br> 
     <h2>
@@ -46,6 +47,18 @@
         function zoek() { 
             document.getElementById('GFG').innerHTML  = document.getElementById('naam').value; 
         } 
+        
+    </script> 
+    <script>
+        function updateStatus(){
+            if(${sessionScope.score}>0){
+                document.getElementById('STATUS').innerHTML  = "<p style='color:red;display:inline;'>Onveilig </p>";
+            }
+            else{
+                document.getElementById('STATUS').innerHTML = "<p style='color:green;display:inline;'>Veilig</p>"
+            }
+        }
+        updateStatus();
     </script> 
     <br>
     <label id = "GFG"> 

@@ -15,4 +15,11 @@ import javax.ejb.Local;
 public interface DBBeanLocal {
     
     public String getTestBurgernaam(int testnr);
+
+    public boolean isArts(int id);
+
+    public boolean isBurger(int id);
+
+    public int getScore(int id);
+
 }

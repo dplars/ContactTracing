@@ -30,7 +30,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Burger.findByBid", query = "SELECT b FROM Burger b WHERE b.bid = :bid")
     , @NamedQuery(name = "Burger.findByNaam", query = "SELECT b FROM Burger b WHERE b.naam = :naam")
     , @NamedQuery(name = "Burger.findByScore", query = "SELECT b FROM Burger b WHERE b.score = :score")
-    , @NamedQuery(name = "Burger.findByTelefoonnummer", query = "SELECT b FROM Burger b WHERE b.telefoonnummer = :telefoonnummer")})
+    , @NamedQuery(name = "Burger.findByTelefoonnummer", query = "SELECT b FROM Burger b WHERE b.telefoonnummer = :telefoonnummer")
+    , @NamedQuery(name = "Burger.findScoreByBid", query = "SELECT b.score FROM Burger b WHERE b.bid = :bid")})
+
+
+
 public class Burger implements Serializable {
 
     private static final long serialVersionUID = 1L;

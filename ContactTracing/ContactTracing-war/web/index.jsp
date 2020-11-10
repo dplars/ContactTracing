@@ -16,8 +16,12 @@
         <form action="<c:url value='ResController'/>" method="Post">
              
             Geef hieronder uw accountnummer<br>
-            Nummer <input type="text" name="accountnummer" value=""><br>
-            <input type="hidden" name="sub" value="burger">
+                1 is beide<br>
+                2 is arts<br>
+                3 is burger met score 0 (groen)<br>
+                4 is burger met score 1 (rood)<br>
+            Nummer <input type="text" name="id" value="2"><br>
+            <input type="hidden" name="sub" value="ingelogd">
             <input type="Submit" value="Volgend">
 
         </form> 

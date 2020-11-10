@@ -38,6 +38,8 @@ public class Test implements Serializable {
     private Integer tid;
     @Column(name = "testresultaat")
     private Boolean testresultaat;
+    @Column(name = "pid")
+    private Integer pid;
 
     public Test() {
     }
@@ -52,6 +54,14 @@ public class Test implements Serializable {
 
     public void setTid(Integer tid) {
         this.tid = tid;
+    }
+    
+    public Integer getPid() {
+        return pid;
+    }
+
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 
     public Boolean getTestresultaat() {

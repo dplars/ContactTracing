@@ -5,6 +5,7 @@
  */
 package Beans;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -28,20 +29,53 @@ public class DBBean implements DBBeanLocal {
     
     public String getTestBurgernaam(int testnr) {
         /*
-        opgelot:
+        opgelost:
         .getSingleResult() geeft een NoresultException als er niks is
         Gebruik:
         List<Test> ... = ... .getResultList();
         of try - catch
-        
         */
-        // met testnr de persoon id opzoeken en daarmee de naam van de persoon weergeven
-        Test t = (Test) em.createNamedQuery("Test.FindByTid").setParameter("tid", testnr).getSingleResult();
-       
-        // burger zoeken
-        Burger b = (Burger) em.createNamedQuery("Burger.FindByBID").setParameter("bid", t.getTid()).getSingleResult();
+        System.out.println("zoek burger van test");
+        Test t;
+        Burger b;
+        try {
+            // met testnr de persoon id opzoeken en daarmee de naam van de persoon weergeven
+            t = (Test) (em.createNamedQuery("Test.findByTid").setParameter("tid", testnr).getSingleResult());
+            System.out.println("Test gevonden "+t.toString());
+            System.out.println("Persoon nummer = "+t.getPid().toString());
+            em.merge(t);
+            
+            
+            }
+        catch (NoResultException e) {
+            System.out.println("Geen Test gevonden");
+            System.out.println(e);
+            return "Geen test";
+        }
+        catch (Exception e) {
+            System.out.println("Een fout opgetreden in getTestBurgernaam");
+            System.out.println(e);
+            return null;
+        }
+        try {
+            // burger zoeken
+            b = (Burger) (em.createNamedQuery("Burger.findByBid").setParameter("bid", t.getPid()).getSingleResult());
+            System.out.println("Burger gevonden "+b.toString());
+            
+            return b.getNaam();
+            }
+        catch (NoResultException e) {
+            System.out.println("Geen burger gevonden");
+            System.out.println(e);
+            return "Geen burger";
+        }
+        catch (Exception e) {
+            System.out.println("Een fout opgetreden in getTestBurgernaam");
+            System.out.println(e);
+            return null;
+        }
         
-        return b.getNaam();
+        
     }
     public int getScore(int id){
         System.out.println("Zoek score van burger met id:");

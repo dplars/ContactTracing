@@ -16,12 +16,13 @@
         <h2>Test nummer: ${sessionScope.testnr}</h2>
         
         Voor klant: ${requestScope.burgernaam}<br>
-        Was de test: ${requestScope.testresultaat}
+        Was de test: ${param.testresultaat}<br>
         Kloppen deze gegevens?
-        <form id="bevestigform">
+        <form id="bevestigform" action="ResController" method="POST">
             <button type="submit" value="ntcorrect" name="ntcorrect">Deze gegevens zijn niet correct</button>
             <button type="submit" value="correct" name="correct">Deze gegevens zijn correct</button>
-            
         </form>
+        <jsp:include page="footer.jsp"/>
     </body>
+    
 </html>

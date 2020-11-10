@@ -121,10 +121,44 @@ public class ResController extends HttpServlet {
                
                 sessie.setAttribute("testnr", testnr); 
                 
+                System.out.println("testnummer "+testnr);
+                
                 String burgernaam = dbbean.getTestBurgernaam(Integer.parseInt(testnr));
-                request.setAttribute("burgernaam", burgernaam);
-                // naar klant.jsp gaan in plaats van naar reserveer.jsp
-                goToPage("bevestig.jsp", request, response);
+                if (burgernaam != null) {
+                    
+                    if (burgernaam.equals("Geen burger")) {
+                        String err = "Geen geldige burger gevonden";
+                        request.setAttribute("error", err);
+                        goToPage("arts.jsp",request, response);
+                    }
+                    else if (burgernaam.equals("Geen test")) {
+                        String err = "Geen geldige test nummer ingegeven";
+                        request.setAttribute("error", err);
+                        goToPage("arts.jsp",request, response);
+                    }
+                    else {
+                        request.setAttribute("burgernaam", burgernaam);
+                
+                        System.out.println("burgernaam "+ burgernaam);
+                        // naar klant.jsp gaan in plaats van naar reserveer.jsp
+                        goToPage("bevestig.jsp", request, response);
+                    }
+                }
+                else {
+                    // er is een grotere fout gebeurt
+                    String err = "Een grote fout gebeurt!";
+                        request.setAttribute("error", err);
+                        goToPage("arts.jsp",request, response);
+                }
+                
+                break;
+            case "ntcorrect":
+                String msg = "Vul testresultaat opnieuw in";
+                Integer tnr = (Integer) sessie.getAttribute("testnr");
+                        request.setAttribute("msg", msg);
+                        request.setAttribute("testnr", tnr);
+                        goToPage("arts.jsp",request, response);
+                goToPage("arts.jsp", request, response);
                 break;
             case "nieuwAccount":
                 response.sendRedirect("index.jsp");

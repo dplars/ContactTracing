@@ -33,8 +33,7 @@
                 <input type="Submit" value="registreer?">
         </form>
         
-        Tijdelijke shortcuts naar arts/burgerpagina?
-        Moet op basis van klantnummer naar juiste gaan
+        Inloggen als:
          <form action="ResController" method="Post">       
                 <input type="hidden" name="sub" value="burger">
                 <input type="Submit" value="Burger?">

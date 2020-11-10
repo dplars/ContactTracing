@@ -5,6 +5,7 @@
  */
 package Beans;
 
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,23 +19,12 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class DBBean implements DBBeanLocal {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
-    
     @PersistenceContext private EntityManager em;
     
     public DBBean() {
-        
     }
     
     public String getTestBurgernaam(int testnr) {
-        /*
-        opgelost:
-        .getSingleResult() geeft een NoresultException als er niks is
-        Gebruik:
-        List<Test> ... = ... .getResultList();
-        of try - catch
-        */
         System.out.println("zoek burger van test");
         Test t;
         Burger b;
@@ -73,9 +63,7 @@ public class DBBean implements DBBeanLocal {
             System.out.println("Een fout opgetreden in getTestBurgernaam");
             System.out.println(e);
             return null;
-        }
-        
-        
+        }    
     }
     
     public Boolean schrijfTestWeg(int testnr, String testresultaat) {
@@ -163,5 +151,35 @@ public class DBBean implements DBBeanLocal {
             System.out.println("Geen Burber ");
             return false;
         }
+    }
+    public List getSortedBid() {
+        return em.createNamedQuery("Burger.findSortedBid").getResultList();
+    }
+    public List getBurgersNaam() {
+        return em.createNamedQuery("Burger.findAllNaam").getResultList();
+    }
+    public List getBurgersTele() {
+        return em.createNamedQuery("Burger.findAllTele").getResultList();
+    }
+    public void nieuwContact(int id1,int id2,int type) {
+        int ncid = 1;
+        try{
+            Integer lknr = (Integer)em.createNamedQuery("Contact.laatsteKnr").getSingleResult();
+            ncid = lknr.intValue() + 1;
+        }catch(Exception e){
+            
+        }
+        System.out.println("data:");
+        System.out.println(ncid);
+        System.out.println(id1);
+        System.out.println(id2);
+        System.out.println(type);
+        Contact res = new Contact(ncid);
+        //res.setCid(ncid);
+        res.setPersoon1(id1);
+        res.setPersoon2(id2);
+        res.setType(type);
+        
+        em.persist(res);   
     }
 }

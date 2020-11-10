@@ -31,7 +31,7 @@ CREATE TABLE burger (
   bid int  NOT NULL ,
   naam varchar(22),
   score int,
-  telefoonnummer int,
+  telefoonnummer varchar(22),
   PRIMARY KEY (bid)
 ) ;
 
@@ -46,11 +46,11 @@ VALUES (1, 1), (2, 2);
 
 INSERT INTO burger (bid, naam, score, telefoonnummer)
 VALUES
-	(1, '1', 0, 0),
-	(2, 'Burger', 0, 948372784),
-	(3, '3', 0, 0),
-	(4, '4', 1, 0),
-	(5, 'Testnaam', 0, 458392093);
+	(1, '1', 0, '0'),
+	(2, 'Burger', 0, '948372784'),
+	(3, '3', 0, '0'),
+	(4, '4', 1, '0'),
+	(5, 'Testnaam', 0, '458392093');
 
 INSERT INTO test (tid, testresultaat, pid)
 VALUES

@@ -5,6 +5,7 @@
  */
 package Beans;
 
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -25,5 +26,10 @@ public interface DBBeanLocal {
     public Boolean schrijfTestWeg(int testnr, String testresultaat);
     
     public Boolean testEmpty(int testnr);
+
+    public List getBurgersNaam();
+    public List getBurgersTele();
+    public List getSortedBid();
+    public void nieuwContact(int id1,int id2,int type);
 
 }

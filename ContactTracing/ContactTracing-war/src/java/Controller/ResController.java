@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -99,7 +101,7 @@ public class ResController extends HttpServlet {
                     gotoPage("arts.jsp",request,response);
                 }
                 else if(dbbean.isBurger(id)){
-                    gotoBurger(id,"burger.jsp",request,response);
+                    gotoBurger("burger.jsp",request,response);
                 }
                 else{
                     gotoPage("registreer.jsp",request,response);
@@ -108,10 +110,8 @@ public class ResController extends HttpServlet {
             case "registreer":    
                 gotoPage("registreer.jsp",request,response);
                 break;
-            case "burger":   
-                id = 3;
-                sessie.setAttribute("id", id);             
-                gotoBurger(id,"burger.jsp",request,response);
+            case "burger":                
+                gotoBurger("burger.jsp",request,response);
                 break;
             case "arts":    
                 gotoPage("arts.jsp",request,response);
@@ -189,6 +189,16 @@ public class ResController extends HttpServlet {
                 }
                 goToPage("arts.jsp", request, response);
                 break;
+            
+                
+            case "NieuwContact":
+                int ID1 = (int) sessie.getAttribute("id");
+                int typeContact = Integer.parseInt(request.getParameter("typeContact"));
+                int contactId = Integer.parseInt(request.getParameter("Sburger"));
+                System.out.println("Gegeven:\n"+"\tType:"+typeContact+"\tContactID:"+contactId+"\tEigenID:"+ID1);
+                dbbean.nieuwContact(ID1,contactId,typeContact);
+                response.sendRedirect("burger.jsp");
+                break;
             case "nieuwAccount":
                 response.sendRedirect("index.jsp");
                 break;
@@ -199,9 +209,10 @@ public class ResController extends HttpServlet {
         }
   
     }
-    public void gotoBurger(int id,String page,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        int score = dbbean.getScore(id);
+    public void gotoBurger(String page,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         HttpSession sessie = request.getSession(true);
+        int id = (int) sessie.getAttribute("id");
+        int score = dbbean.getScore(id);
         sessie.setAttribute("score", score); 
         System.out.println("Score: "+score);
         gotoPage("burger.jsp",request,response);
@@ -211,8 +222,16 @@ public class ResController extends HttpServlet {
         view.forward(request,response);
     }   
     public void init(){
+        System.out.println("init");
+        List naamLijst = dbbean.getBurgersNaam();
+        List teleLijst = dbbean.getBurgersTele();
+        List bidLijst = dbbean.getSortedBid();
+        getServletContext().setAttribute("burgersNaam",naamLijst);
+        getServletContext().setAttribute("burgersTele",teleLijst);
+        getServletContext().setAttribute("burgersBid",bidLijst);
         
-        
+        System.out.println("Einde init");
+         
     }    
     @Override
     public String getServletInfo() {

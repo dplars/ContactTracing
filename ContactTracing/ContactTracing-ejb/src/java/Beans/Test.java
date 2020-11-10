@@ -37,7 +37,7 @@ public class Test implements Serializable {
     @Column(name = "tid")
     private Integer tid;
     @Column(name = "testresultaat")
-    private Boolean testresultaat;
+    private Integer testresultaat;
     @Column(name = "pid")
     private Integer pid;
 
@@ -64,11 +64,11 @@ public class Test implements Serializable {
         this.pid = pid;
     }
 
-    public Boolean getTestresultaat() {
+    public Integer getTestresultaat() {
         return testresultaat;
     }
 
-    public void setTestresultaat(Boolean testresultaat) {
+    public void setTestresultaat(Integer testresultaat) {
         this.testresultaat = testresultaat;
     }
 

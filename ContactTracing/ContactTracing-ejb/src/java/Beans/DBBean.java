@@ -77,6 +77,56 @@ public class DBBean implements DBBeanLocal {
         
         
     }
+    
+    public Boolean schrijfTestWeg(int testnr, String testresultaat) {
+        int res = 0;
+        if(testresultaat.equals("positief")) {
+            res = 1;
+        }
+        else {
+            res = 2;
+        }
+        Test t;
+        try {
+            t = (Test) (em.createNamedQuery("Test.findByTid").setParameter("tid", testnr).getSingleResult());
+            t.setTestresultaat(res);
+            return true;
+        }
+        catch (NoResultException e) {
+            System.out.println("Geen test gevonden");
+            System.out.println(e);
+            return false;
+        }
+        catch (Exception e) {
+            System.out.println("Grote fout");
+            System.out.println(e);
+            return false;
+        }
+    }
+    
+    public Boolean testEmpty(int testnr) {
+        Test t;
+        try {
+            t = (Test) (em.createNamedQuery("Test.findByTid").setParameter("tid", testnr).getSingleResult());
+            if(t.getTestresultaat() == 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        catch (NoResultException e) {
+            System.out.println("Geen test gevonden");
+            System.out.println(e);
+            return false;
+        }
+        catch (Exception e) {
+            System.out.println("Grote fout");
+            System.out.println(e);
+            return false;
+        }
+    }
+    
     public int getScore(int id){
         System.out.println("Zoek score van burger met id:");
         System.out.println(id);

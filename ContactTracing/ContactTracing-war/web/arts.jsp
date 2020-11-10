@@ -46,7 +46,7 @@
                 ${requestScope.error}<br>
                 </c:if>
             </a>
-            <a style="color:red;"><c:if test="${!empty requestScope.msg}">
+            <a style="color:green;"><c:if test="${!empty requestScope.msg}">
                 ${requestScope.msg}<br>
                 </c:if>
             </a>
@@ -56,12 +56,12 @@
                    <c:if test="${!empty sessionScope.testnr}">
                        value="${sessionScope.testnr}"
                    </c:if>
-                   />
+                       /><br>
             
             <label for="testpositief" id="poslabel">Positief</label>
             <input type="radio" id="testpositief" name="testresultaat" value="positief"/>
             <label for="testnegatief" id="neglabel">Negatief</label>
-            <input type="radio" id="testnegatief" name="testresultaat" value="negatief"/>
+            <input type="radio" id="testnegatief" name="testresultaat" value="negatief"/><br>
             
             <input type="button" onclick="submit_form();" name="sub" value="doorgaan"/>
             <input type="submit" style="display:none;" id="submitbutton" name="sub" value="doorgaan"/>

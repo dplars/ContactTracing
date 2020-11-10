@@ -21,5 +21,9 @@ public interface DBBeanLocal {
     public boolean isBurger(int id);
 
     public int getScore(int id);
+    
+    public Boolean schrijfTestWeg(int testnr, String testresultaat);
+    
+    public Boolean testEmpty(int testnr);
 
 }

@@ -83,6 +83,9 @@ public class ResController extends HttpServlet {
     HttpSession sessie = request.getSession(true);    
     
     int id; 
+    String testResultaat;
+    int testnr = 0;
+    String msg;
     switch (request.getParameter("sub")) {        
             case "ingelogd": 
                 id = Integer.parseInt(request.getParameter("id"));
@@ -115,49 +118,75 @@ public class ResController extends HttpServlet {
                 break;
             case "doorgaan":
                 // komende van arts.jsp, gaande naar bevestig.jsp
-                String testnr = request.getParameter("testnr");
-                String resultaat = request.getParameter("testresultaat");
+                testnr = Integer.parseInt(request.getParameter("testnr"));
+                testResultaat = request.getParameter("testresultaat");
                 // gegevens opslaan in session variabelen
                
                 sessie.setAttribute("testnr", testnr); 
+                sessie.setAttribute("testResultaat", testResultaat);
                 
                 System.out.println("testnummer "+testnr);
-                
-                String burgernaam = dbbean.getTestBurgernaam(Integer.parseInt(testnr));
-                if (burgernaam != null) {
-                    
-                    if (burgernaam.equals("Geen burger")) {
-                        String err = "Geen geldige burger gevonden";
-                        request.setAttribute("error", err);
-                        goToPage("arts.jsp",request, response);
-                    }
-                    else if (burgernaam.equals("Geen test")) {
-                        String err = "Geen geldige test nummer ingegeven";
-                        request.setAttribute("error", err);
-                        goToPage("arts.jsp",request, response);
+                if(dbbean.testEmpty(testnr)) {
+                    String burgernaam = dbbean.getTestBurgernaam(testnr);
+                    if (burgernaam != null) {
+
+                        if (burgernaam.equals("Geen burger")) {
+                            String err = "Geen geldige burger gevonden";
+                            request.setAttribute("error", err);
+                            goToPage("arts.jsp",request, response);
+                        }
+                        else if (burgernaam.equals("Geen test")) {
+                            String err = "Geen geldige test nummer ingegeven";
+                            request.setAttribute("error", err);
+                            goToPage("arts.jsp",request, response);
+                        }
+                        else {
+                            request.setAttribute("burgernaam", burgernaam);
+
+                            System.out.println("burgernaam "+ burgernaam);
+                            // naar klant.jsp gaan in plaats van naar reserveer.jsp
+                            goToPage("bevestig.jsp", request, response);
+                        }
                     }
                     else {
-                        request.setAttribute("burgernaam", burgernaam);
-                
-                        System.out.println("burgernaam "+ burgernaam);
-                        // naar klant.jsp gaan in plaats van naar reserveer.jsp
-                        goToPage("bevestig.jsp", request, response);
+                        // er is een grotere fout gebeurt
+                        String err = "Een grote fout gebeurt!";
+                            request.setAttribute("error", err);
+                            goToPage("arts.jsp",request, response);
                     }
                 }
                 else {
-                    // er is een grotere fout gebeurt
-                    String err = "Een grote fout gebeurt!";
-                        request.setAttribute("error", err);
-                        goToPage("arts.jsp",request, response);
+                    // Test is niet leeg
+                    String err = "Deze test is al ingevuld!";
+                    request.setAttribute("error", err);
+                    goToPage("arts.jsp",request, response);
                 }
                 
                 break;
             case "ntcorrect":
-                String msg = "Vul testresultaat opnieuw in";
-                Integer tnr = (Integer) sessie.getAttribute("testnr");
-                        request.setAttribute("msg", msg);
-                        request.setAttribute("testnr", tnr);
-                        goToPage("arts.jsp",request, response);
+                msg = "Vul testresultaat opnieuw in";
+                //if (testnr == 0) {
+                //    testnr =  Integer.parseInt((String) sessie.getAttribute("testnr"));
+                //}
+                
+                request.setAttribute("msg", msg);
+                request.setAttribute("testnr", testnr);
+                //goToPage("arts.jsp",request, response);
+                goToPage("arts.jsp", request, response);
+                break;
+            case "correct":
+                testResultaat = (String) sessie.getAttribute("testResultaat");
+                testnr = (int) sessie.getAttribute("testnr");
+                
+                if(dbbean.schrijfTestWeg(testnr, testResultaat)) {
+                    msg = "Test "+testnr+" correct weggeschreven!";
+                    request.setAttribute("msg", msg);
+                }
+                else {
+                    String err = "Kon test "+testnr+" niet wegschrijven!";
+                    request.setAttribute("error", err);
+                    request.setAttribute("testnr", testnr);
+                }
                 goToPage("arts.jsp", request, response);
                 break;
             case "nieuwAccount":

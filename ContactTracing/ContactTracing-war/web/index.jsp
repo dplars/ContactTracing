@@ -36,7 +36,7 @@
         Inloggen als:
          <form action="ResController" method="Post">       
                 <input type="hidden" name="sub" value="burger">
-                <input type="Submit" value="Burger?">
+                <input type="Submit" value="Nog niet gebruiken: burger.jsp verwacht een knr in de sessie => via volgend naar burger gaan">
         </form>
         </form> 
         

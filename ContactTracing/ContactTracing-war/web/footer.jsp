@@ -19,6 +19,6 @@
             <input type="Submit" value="Log uit">
         </form>
 
-        <jsp:include page="../footer.jsp"/>
+        
     </body>
 </html>

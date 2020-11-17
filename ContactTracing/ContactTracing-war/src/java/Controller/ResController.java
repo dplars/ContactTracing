@@ -84,12 +84,17 @@ public class ResController extends HttpServlet {
         //processRequest(request, response);
     HttpSession sessie = request.getSession(true);    
     System.out.println("In resController doPost");
+        
     
     int id; 
     String testResultaat;
     int testnr = 0;
     String msg;
-    switch (request.getParameter("sub")) {        
+    switch (request.getParameter("sub")) {
+            /*
+            er staat hier wel vaak  gotoPage("arts/arts.jsp"
+            valt misschien te reduceren
+            */
             case "ingelogd": 
                 id = Integer.parseInt(request.getParameter("id"));
                 sessie.setAttribute("id", id);
@@ -102,7 +107,7 @@ public class ResController extends HttpServlet {
                     gotoPage("arts/arts.jsp",request,response);
                 }
                 else if(dbbean.isBurger(id)){
-                    gotoBurger("burger/burger.jsp",request,response);
+                    gotoBurger(request,response);
                 }
                 else{
                     gotoPage("registreer.jsp",request,response);
@@ -112,7 +117,7 @@ public class ResController extends HttpServlet {
                 gotoPage("registreer.jsp",request,response);
                 break;
             case "burger":                
-                gotoBurger("burger/burger.jsp",request,response);
+                gotoBurger(request,response);
                 break;
             case "arts":   
                 
@@ -137,32 +142,32 @@ public class ResController extends HttpServlet {
                         if (burgernaam.equals("Geen burger")) {
                             String err = "Geen geldige burger gevonden";
                             request.setAttribute("error", err);
-                            goToPage("arts.jsp",request, response);
+                            gotoPage("arts/arts.jsp",request, response);
                         }
                         else if (burgernaam.equals("Geen test")) {
                             String err = "Geen geldige test nummer ingegeven";
                             request.setAttribute("error", err);
-                            goToPage("arts.jsp",request, response);
+                            gotoPage("arts/arts.jsp",request, response);
                         }
                         else {
                             request.setAttribute("burgernaam", burgernaam);
 
                             System.out.println("burgernaam "+ burgernaam);
-                            goToPage("bevestig.jsp", request, response);
+                            gotoPage("arts/bevestig.jsp", request, response);
                         }
                     }
                     else {
                         // er is een grotere fout gebeurt
                         String err = "Een grote fout gebeurt!";
                             request.setAttribute("error", err);
-                            goToPage("arts.jsp",request, response);
+                            gotoPage("arts/arts.jsp",request, response);
                     }
                 }
                 else {
                     // Test is niet leeg
                     String err = "Deze test is al ingevuld!";
                     request.setAttribute("error", err);
-                    goToPage("arts.jsp",request, response);
+                    gotoPage("arts/arts.jsp",request, response);
                 }
                 System.out.println("einde van doorgaan");
                 break;
@@ -174,8 +179,8 @@ public class ResController extends HttpServlet {
                 
                 request.setAttribute("msg", msg);
                 request.setAttribute("testnr", testnr);
-                //goToPage("arts.jsp",request, response);
-                goToPage("arts.jsp", request, response);
+                //gotoPage("arts.jsp",request, response);
+                gotoPage("arts/arts.jsp", request, response);
                 break;
             case "correct":
                 testResultaat = (String) sessie.getAttribute("testResultaat");
@@ -190,7 +195,7 @@ public class ResController extends HttpServlet {
                     request.setAttribute("error", err);
                     request.setAttribute("testnr", testnr);
                 }
-                goToPage("arts/arts.jsp", request, response);
+                gotoPage("arts/arts.jsp", request, response);
                 break;
             
                 
@@ -212,7 +217,7 @@ public class ResController extends HttpServlet {
         }
   
     }
-    public void gotoBurger(String page,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public void gotoBurger(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         HttpSession sessie = request.getSession(true);
         int id = (int) sessie.getAttribute("id");
         int score = dbbean.getScore(id);
@@ -221,10 +226,15 @@ public class ResController extends HttpServlet {
         gotoPage("burger/burger.jsp",request,response);
     }
     public void gotoPage(String page,HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
-        RequestDispatcher view = request.getRequestDispatcher(page);
-        view.forward(request,response);
+        System.out.println("Ga naar:"+page);
+        response.sendRedirect(page);
+        //https://stackoverflow.com/questions/2047122/requestdispatcher-forward-vs-httpservletresponse-sendredirect#:~:text=The%20main%20important%20difference%20between,and%20it's%20visible%20to%20client.
+        
+        //RequestDispatcher view = request.getRequestDispatcher(page);
+        //view.forward(request,response);
     }   
     public void init(){
+                
         System.out.println("init");
         List naamLijst = dbbean.getBurgersNaam();
         List teleLijst = dbbean.getBurgersTele();
@@ -240,15 +250,6 @@ public class ResController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    public void goToPage(String jspPage, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        // volledig pad voor url plakken
-        String url = "http://localhost:8080/ContactTracing-war/"+jspPage;
-        // encode url om ook een session id te sturen wanneer geen cookies toegelaten zijn
-        RequestDispatcher view = request.getRequestDispatcher(response.encodeURL(url));
-        view.forward(request, response);
-    }
     
 }
 

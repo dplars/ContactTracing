@@ -132,7 +132,7 @@ public class ResController extends HttpServlet {
                 System.out.println("testnummer "+testnr);
                 if(dbbean.testEmpty(testnr)) {
                     String burgernaam = dbbean.getTestBurgernaam(testnr);
-                    if (burgernaam != null) {
+                    if (burgernaam != null) { 
 
                         if (burgernaam.equals("Geen burger")) {
                             String err = "Geen geldige burger gevonden";
@@ -152,7 +152,7 @@ public class ResController extends HttpServlet {
                         }
                     }
                     else {
-                        // er is een grotere fout gebeurt
+                        // er is een grotere fout gebeurt.
                         String err = "Een grote fout gebeurt!";
                             request.setAttribute("error", err);
                             goToPage("arts.jsp",request, response);

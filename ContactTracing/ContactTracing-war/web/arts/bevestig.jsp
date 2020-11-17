@@ -26,7 +26,7 @@
             <button type="submit" value="ntcorrect" name="sub">Deze gegevens zijn niet correct</button>
             <button type="submit" value="correct" name="sub">Deze gegevens zijn correct</button>
         </form>
-        <jsp:include page="footer.jsp"/>
+        
     </body>
     
 </html>

@@ -14,7 +14,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>public/index.jsp</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     <security-constraint>
         <display-name>burger</display-name>
@@ -46,8 +46,8 @@
         <auth-method>FORM</auth-method>
         <realm-name>ContactTracingRealm</realm-name>
         <form-login-config>
-            <form-login-page>/public/login.jsp</form-login-page>
-            <form-error-page>/public/loginError.jsp</form-error-page>
+            <form-login-page>/login.jsp</form-login-page>
+            <form-error-page>/loginError.jsp</form-error-page>
         </form-login-config>
     </login-config>
     <security-role>

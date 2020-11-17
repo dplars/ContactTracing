@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
  * @author r0714500
  */
 public class ResController extends HttpServlet {
-
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -83,6 +83,7 @@ public class ResController extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
     HttpSession sessie = request.getSession(true);    
+    System.out.println("In resController doPost");
     
     int id; 
     String testResultaat;
@@ -94,7 +95,7 @@ public class ResController extends HttpServlet {
                 sessie.setAttribute("id", id);
                 if(dbbean.isArts(id)&& dbbean.isBurger(id)){
                     System.out.println("Is beide");
-                    gotoPage("public/keuze.jsp",request,response);
+                    gotoPage("keuze.jsp",request,response);
                     //naar een keuze pagina 
                 }
                 else if(dbbean.isArts(id)){
@@ -104,19 +105,22 @@ public class ResController extends HttpServlet {
                     gotoBurger("burger/burger.jsp",request,response);
                 }
                 else{
-                    gotoPage("public/registreer.jsp",request,response);
+                    gotoPage("registreer.jsp",request,response);
                 }
                 break;
             case "registreer":    
-                gotoPage("public/registreer.jsp",request,response);
+                gotoPage("registreer.jsp",request,response);
                 break;
             case "burger":                
                 gotoBurger("burger/burger.jsp",request,response);
                 break;
-            case "arts":    
+            case "arts":   
+                
                 gotoPage("arts/arts.jsp",request,response);
                 break;
             case "doorgaan":
+                
+                System.out.println("bij doorgaan gekomen");
                 // komende van arts.jsp, gaande naar bevestig.jsp
                 testnr = Integer.parseInt(request.getParameter("testnr"));
                 testResultaat = request.getParameter("testresultaat");
@@ -133,35 +137,34 @@ public class ResController extends HttpServlet {
                         if (burgernaam.equals("Geen burger")) {
                             String err = "Geen geldige burger gevonden";
                             request.setAttribute("error", err);
-                            goToPage("arts/arts.jsp",request, response);
+                            goToPage("arts.jsp",request, response);
                         }
                         else if (burgernaam.equals("Geen test")) {
                             String err = "Geen geldige test nummer ingegeven";
                             request.setAttribute("error", err);
-                            goToPage("arts/arts.jsp",request, response);
+                            goToPage("arts.jsp",request, response);
                         }
                         else {
                             request.setAttribute("burgernaam", burgernaam);
 
                             System.out.println("burgernaam "+ burgernaam);
-                            // naar klant.jsp gaan in plaats van naar reserveer.jsp
-                            goToPage("arts/bevestig.jsp", request, response);
+                            goToPage("bevestig.jsp", request, response);
                         }
                     }
                     else {
                         // er is een grotere fout gebeurt
                         String err = "Een grote fout gebeurt!";
                             request.setAttribute("error", err);
-                            goToPage("arts/arts.jsp",request, response);
+                            goToPage("arts.jsp",request, response);
                     }
                 }
                 else {
                     // Test is niet leeg
                     String err = "Deze test is al ingevuld!";
                     request.setAttribute("error", err);
-                    goToPage("arts/arts.jsp",request, response);
+                    goToPage("arts.jsp",request, response);
                 }
-                
+                System.out.println("einde van doorgaan");
                 break;
             case "ntcorrect":
                 msg = "Vul testresultaat opnieuw in";
@@ -172,7 +175,7 @@ public class ResController extends HttpServlet {
                 request.setAttribute("msg", msg);
                 request.setAttribute("testnr", testnr);
                 //goToPage("arts.jsp",request, response);
-                goToPage("arts/arts.jsp", request, response);
+                goToPage("arts.jsp", request, response);
                 break;
             case "correct":
                 testResultaat = (String) sessie.getAttribute("testResultaat");
@@ -200,11 +203,11 @@ public class ResController extends HttpServlet {
                 response.sendRedirect("burger/burger.jsp");
                 break;
             case "nieuwAccount":
-                response.sendRedirect("public/index.jsp");
+                response.sendRedirect("index.jsp");
                 break;
             case "afbreken":  
                 sessie.invalidate();
-                response.sendRedirect("public/index.jsp");
+                response.sendRedirect("index.jsp");
                 break;
         }
   

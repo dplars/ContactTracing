@@ -68,5 +68,5 @@
         </form>
     </body>
     
-    <jsp:include page="/public/footer.jsp"/>
+    <jsp:include page="../footer.jsp"/>
 </html>

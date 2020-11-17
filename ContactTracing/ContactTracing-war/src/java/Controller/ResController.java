@@ -94,27 +94,27 @@ public class ResController extends HttpServlet {
                 sessie.setAttribute("id", id);
                 if(dbbean.isArts(id)&& dbbean.isBurger(id)){
                     System.out.println("Is beide");
-                    gotoPage("keuze.jsp",request,response);
+                    gotoPage("public/keuze.jsp",request,response);
                     //naar een keuze pagina 
                 }
                 else if(dbbean.isArts(id)){
-                    gotoPage("arts.jsp",request,response);
+                    gotoPage("arts/arts.jsp",request,response);
                 }
                 else if(dbbean.isBurger(id)){
-                    gotoBurger("burger.jsp",request,response);
+                    gotoBurger("burger/burger.jsp",request,response);
                 }
                 else{
-                    gotoPage("registreer.jsp",request,response);
+                    gotoPage("public/registreer.jsp",request,response);
                 }
                 break;
             case "registreer":    
-                gotoPage("registreer.jsp",request,response);
+                gotoPage("public/registreer.jsp",request,response);
                 break;
             case "burger":                
-                gotoBurger("burger.jsp",request,response);
+                gotoBurger("burger/burger.jsp",request,response);
                 break;
             case "arts":    
-                gotoPage("arts.jsp",request,response);
+                gotoPage("arts/arts.jsp",request,response);
                 break;
             case "doorgaan":
                 // komende van arts.jsp, gaande naar bevestig.jsp
@@ -133,33 +133,33 @@ public class ResController extends HttpServlet {
                         if (burgernaam.equals("Geen burger")) {
                             String err = "Geen geldige burger gevonden";
                             request.setAttribute("error", err);
-                            goToPage("arts.jsp",request, response);
+                            goToPage("arts/arts.jsp",request, response);
                         }
                         else if (burgernaam.equals("Geen test")) {
                             String err = "Geen geldige test nummer ingegeven";
                             request.setAttribute("error", err);
-                            goToPage("arts.jsp",request, response);
+                            goToPage("arts/arts.jsp",request, response);
                         }
                         else {
                             request.setAttribute("burgernaam", burgernaam);
 
                             System.out.println("burgernaam "+ burgernaam);
                             // naar klant.jsp gaan in plaats van naar reserveer.jsp
-                            goToPage("bevestig.jsp", request, response);
+                            goToPage("arts/bevestig.jsp", request, response);
                         }
                     }
                     else {
                         // er is een grotere fout gebeurt
                         String err = "Een grote fout gebeurt!";
                             request.setAttribute("error", err);
-                            goToPage("arts.jsp",request, response);
+                            goToPage("arts/arts.jsp",request, response);
                     }
                 }
                 else {
                     // Test is niet leeg
                     String err = "Deze test is al ingevuld!";
                     request.setAttribute("error", err);
-                    goToPage("arts.jsp",request, response);
+                    goToPage("arts/arts.jsp",request, response);
                 }
                 
                 break;
@@ -172,7 +172,7 @@ public class ResController extends HttpServlet {
                 request.setAttribute("msg", msg);
                 request.setAttribute("testnr", testnr);
                 //goToPage("arts.jsp",request, response);
-                goToPage("arts.jsp", request, response);
+                goToPage("arts/arts.jsp", request, response);
                 break;
             case "correct":
                 testResultaat = (String) sessie.getAttribute("testResultaat");
@@ -187,7 +187,7 @@ public class ResController extends HttpServlet {
                     request.setAttribute("error", err);
                     request.setAttribute("testnr", testnr);
                 }
-                goToPage("arts.jsp", request, response);
+                goToPage("arts/arts.jsp", request, response);
                 break;
             
                 
@@ -197,14 +197,14 @@ public class ResController extends HttpServlet {
                 int contactId = Integer.parseInt(request.getParameter("Sburger"));
                 System.out.println("Gegeven:\n"+"\tType:"+typeContact+"\tContactID:"+contactId+"\tEigenID:"+ID1);
                 dbbean.nieuwContact(ID1,contactId,typeContact);
-                response.sendRedirect("burger.jsp");
+                response.sendRedirect("burger/burger.jsp");
                 break;
             case "nieuwAccount":
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("public/index.jsp");
                 break;
             case "afbreken":  
                 sessie.invalidate();
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("public/index.jsp");
                 break;
         }
   
@@ -215,7 +215,7 @@ public class ResController extends HttpServlet {
         int score = dbbean.getScore(id);
         sessie.setAttribute("score", score); 
         System.out.println("Score: "+score);
-        gotoPage("burger.jsp",request,response);
+        gotoPage("burger/burger.jsp",request,response);
     }
     public void gotoPage(String page,HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         RequestDispatcher view = request.getRequestDispatcher(page);
@@ -240,8 +240,10 @@ public class ResController extends HttpServlet {
 
     public void goToPage(String jspPage, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        // volledig pad voor url plakken
+        String url = "http://localhost:8080/ContactTracing-war/"+jspPage;
         // encode url om ook een session id te sturen wanneer geen cookies toegelaten zijn
-        RequestDispatcher view = request.getRequestDispatcher(response.encodeURL(jspPage));
+        RequestDispatcher view = request.getRequestDispatcher(response.encodeURL(url));
         view.forward(request, response);
     }
     

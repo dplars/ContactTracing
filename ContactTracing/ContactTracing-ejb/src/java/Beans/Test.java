@@ -27,7 +27,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Test.findAll", query = "SELECT t FROM Test t")
     , @NamedQuery(name = "Test.findByTid", query = "SELECT t FROM Test t WHERE t.tid = :tid")
-    , @NamedQuery(name = "Test.findByTestresultaat", query = "SELECT t FROM Test t WHERE t.testresultaat = :testresultaat")})
+    , @NamedQuery(name = "Test.findByTestresultaat", query = "SELECT t FROM Test t WHERE t.testresultaat = :testresultaat")
+    , @NamedQuery(name = "Test.findAantal", query = "SELECT count(t) FROM Test t")})
 public class Test implements Serializable {
 
     private static final long serialVersionUID = 1L;

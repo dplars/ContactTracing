@@ -44,5 +44,11 @@ public class Contacten extends JPanel{
 
  
     }
+    public void updateTypes(long aant1,long aant2,long aant3){
+         this.type1Veld.setText(Long.toString(aant1));
+         this.type2Veld.setText(Long.toString(aant2));
+         this.type3Veld.setText(Long.toString(aant3));
+    }   
+   
 
 }

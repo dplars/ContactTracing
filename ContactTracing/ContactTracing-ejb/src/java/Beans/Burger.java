@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Burger.findScoreByBid", query = "SELECT b.score FROM Burger b WHERE b.bid = :bid")
     , @NamedQuery(name = "Burger.findSortedBid", query = "SELECT b.bid FROM Burger b ORDER BY b.naam")    
     , @NamedQuery(name = "Burger.findAllNaam", query = "SELECT b.naam FROM Burger b ORDER BY b.naam")
-    , @NamedQuery(name = "Burger.findAllTele", query = "SELECT b.telefoonnummer FROM Burger b ORDER BY b.naam")})
+    , @NamedQuery(name = "Burger.findAllTele", query = "SELECT b.telefoonnummer FROM Burger b ORDER BY b.naam")
+    , @NamedQuery(name = "Burger.findAantal", query = "SELECT count(b) FROM Burger b")})
 public class Burger implements Serializable {
 
     private static final long serialVersionUID = 1L;

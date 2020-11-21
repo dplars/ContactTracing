@@ -19,6 +19,10 @@
             <input type="Submit" value="Log uit">
         </form>
 
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 154bf09a57b83afe00af7c03beb698b65cb4f57b
     </body>
 </html>

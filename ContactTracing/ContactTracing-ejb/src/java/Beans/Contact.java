@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Contact.findByPersoon1", query = "SELECT c FROM Contact c WHERE c.persoon1 = :persoon1")
     , @NamedQuery(name = "Contact.findByPersoon2", query = "SELECT c FROM Contact c WHERE c.persoon2 = :persoon2")
     , @NamedQuery(name = "Contact.findByType", query = "SELECT c FROM Contact c WHERE c.type = :type")
-    , @NamedQuery(name = "Contact.laatsteKnr", query = "SELECT max(c.cid) FROM Contact c ")})
+    , @NamedQuery(name = "Contact.laatsteKnr", query = "SELECT max(c.cid) FROM Contact c ")
+    , @NamedQuery(name = "Contact.aantalCont", query = "SELECT count(c) FROM Contact c WHERE c.type = :type")})
 public class Contact implements Serializable {
 
     private static final long serialVersionUID = 1L;

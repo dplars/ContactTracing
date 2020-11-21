@@ -239,7 +239,6 @@ public class ResController extends HttpServlet {
     }// </editor-fold>
 
     public void goToPage(String jspPage, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         // encode url om ook een session id te sturen wanneer geen cookies toegelaten zijn
         RequestDispatcher view = request.getRequestDispatcher(response.encodeURL(jspPage));
         view.forward(request, response);

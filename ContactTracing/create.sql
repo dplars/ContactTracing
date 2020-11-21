@@ -11,6 +11,17 @@ drop table test;
 drop table contact;
 drop table burger;
 drop table arts;
+drop table groepen;
+drop table gebruikers;
+
+create table gebruikers (
+gebruikersnaam varchar(20) primary key,
+paswoord varchar(20) );
+
+create table groepen (
+gebruikersnaam varchar(20) references gebruikers primary key,
+groep varchar(20) );
+
 
 CREATE TABLE test (
   tid int NOT NULL ,
@@ -58,3 +69,15 @@ VALUES
 	(2, 0, 2),
 	(3, 0, 1),
 	(4, 0, 5);
+
+insert into gebruikers values ('jef', 'jf');
+insert into gebruikers values ('jos', 'js');
+insert into gebruikers values ('louis', 'ls');
+insert into gebruikers values ('tim', 'tm');
+insert into gebruikers values ('sara', 'sa');
+
+insert into groepen values ('jef', 'burger' );
+insert into groepen values ('jos', 'burger' );
+insert into groepen values ('louis', 'arts' );
+insert into groepen values ('tim', 'arts' );
+insert into groepen values ('sara', 'admin' );

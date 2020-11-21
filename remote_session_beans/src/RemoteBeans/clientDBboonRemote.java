@@ -5,10 +5,15 @@
  */
 package RemoteBeans;
 
+import javax.ejb.Remote;
+
 /**
  *
- * @author larsdepauw
+ * @author dehan
  */
-interface clientDBboonRemote {
-    
+@Remote
+public interface clientDBboonRemote {
+     public long aantalBurgers();
+      public long aantalContacten(int Type);
+       public long aantalTesten();
 }

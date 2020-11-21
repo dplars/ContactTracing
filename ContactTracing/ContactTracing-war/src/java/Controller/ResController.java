@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
  * @author r0714500
  */
 public class ResController extends HttpServlet {
-
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -83,8 +83,8 @@ public class ResController extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
     HttpSession sessie = request.getSession(true);    
-
     System.out.println("In resController doPost");
+        
     
     int id; 
     String testResultaat;
@@ -104,10 +104,9 @@ public class ResController extends HttpServlet {
                     //naar een keuze pagina 
                 }
                 else if(dbbean.isArts(id)){
-                    gotoPage("arts.jsp",request,response);
+                    gotoPage("arts/arts.jsp",request,response);
                 }
                 else if(dbbean.isBurger(id)){
-
                     gotoBurger(request,response);
                 }
                 else{
@@ -118,13 +117,15 @@ public class ResController extends HttpServlet {
                 gotoPage("registreer.jsp",request,response);
                 break;
             case "burger":                
-
                 gotoBurger(request,response);
                 break;
-            case "arts":    
-                gotoPage("arts.jsp",request,response);
+            case "arts":   
+                
+                gotoPage("arts/arts.jsp",request,response);
                 break;
             case "doorgaan":
+                
+                System.out.println("bij doorgaan gekomen");
                 // komende van arts.jsp, gaande naar bevestig.jsp
                 testnr = Integer.parseInt(request.getParameter("testnr"));
                 testResultaat = request.getParameter("testresultaat");
@@ -152,7 +153,6 @@ public class ResController extends HttpServlet {
                             request.setAttribute("burgernaam", burgernaam);
 
                             System.out.println("burgernaam "+ burgernaam);
-
                             gotoPage("arts/bevestig.jsp", request, response);
                         }
                     }
@@ -169,7 +169,7 @@ public class ResController extends HttpServlet {
                     request.setAttribute("error", err);
                     gotoPage("arts/arts.jsp",request, response);
                 }
-                
+                System.out.println("einde van doorgaan");
                 break;
             case "ntcorrect":
                 msg = "Vul testresultaat opnieuw in";
@@ -195,7 +195,6 @@ public class ResController extends HttpServlet {
                     request.setAttribute("error", err);
                     request.setAttribute("testnr", testnr);
                 }
-
                 gotoPage("arts/arts.jsp", request, response);
                 break;
             
@@ -206,7 +205,7 @@ public class ResController extends HttpServlet {
                 int contactId = Integer.parseInt(request.getParameter("Sburger"));
                 System.out.println("Gegeven:\n"+"\tType:"+typeContact+"\tContactID:"+contactId+"\tEigenID:"+ID1);
                 dbbean.nieuwContact(ID1,contactId,typeContact);
-                response.sendRedirect("burger.jsp");
+                response.sendRedirect("burger/burger.jsp");
                 break;
             case "nieuwAccount":
                 response.sendRedirect("index.jsp");
@@ -224,7 +223,7 @@ public class ResController extends HttpServlet {
         int score = dbbean.getScore(id);
         sessie.setAttribute("score", score); 
         System.out.println("Score: "+score);
-        gotoPage("burger.jsp",request,response);
+        gotoPage("burger/burger.jsp",request,response);
     }
     public void gotoPage(String page,HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         System.out.println("Ga naar:"+page);
@@ -251,6 +250,6 @@ public class ResController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
 }
 

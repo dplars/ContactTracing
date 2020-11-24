@@ -2,6 +2,7 @@
  */
 package Controller;
 import Beans.DBBeanLocal;
+import Beans.Test;
 import java.util.ArrayList;
 
 
@@ -205,7 +206,21 @@ public class ResController extends HttpServlet {
                 int contactId = Integer.parseInt(request.getParameter("Sburger"));
                 System.out.println("Gegeven:\n"+"\tType:"+typeContact+"\tContactID:"+contactId+"\tEigenID:"+ID1);
                 dbbean.nieuwContact(ID1,contactId,typeContact);
-                response.sendRedirect("burger/burger.jsp");
+                gotoBurger(request,response);
+                break;
+            case "nieuweTest":
+                id = (int)sessie.getAttribute("id");
+                dbbean.nieuweTest(id);
+                
+                gotoBurgerTest(request, response);
+                gotoPage("burger/test.jsp", request, response);
+                break;
+            case "burgerTest":
+                gotoBurgerTest(request, response);
+                break;
+             
+            case "burgerStatus":
+                gotoPage("burger/status.jsp", request, response);
                 break;
             case "nieuwAccount":
                 response.sendRedirect("index.jsp");
@@ -217,6 +232,16 @@ public class ResController extends HttpServlet {
         }
   
     }
+    public void gotoBurgerTest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        HttpSession sessie = request.getSession(true);
+        int id = (int)sessie.getAttribute("id");
+        List<Test> testLijst = dbbean.getBurgerTests(id);
+        for(Test t:testLijst){
+            System.out.println("tid:"+t.getTid());
+        }
+        getServletContext().setAttribute("testLijst",testLijst);
+        gotoPage("burger/test.jsp", request, response);
+    }
     public void gotoBurger(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         HttpSession sessie = request.getSession(true);
         int id = (int) sessie.getAttribute("id");
@@ -227,11 +252,11 @@ public class ResController extends HttpServlet {
     }
     public void gotoPage(String page,HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         System.out.println("Ga naar:"+page);
-        response.sendRedirect(page);
+        //response.sendRedirect(page);
         //https://stackoverflow.com/questions/2047122/requestdispatcher-forward-vs-httpservletresponse-sendredirect#:~:text=The%20main%20important%20difference%20between,and%20it's%20visible%20to%20client.
         
-        //RequestDispatcher view = request.getRequestDispatcher(page);
-        //view.forward(request,response);
+        RequestDispatcher view = request.getRequestDispatcher(page);
+        view.forward(request,response);
     }   
     public void init(){
                 
@@ -252,4 +277,3 @@ public class ResController extends HttpServlet {
     }// </editor-fold>
     
 }
-

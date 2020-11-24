@@ -32,7 +32,7 @@ public class DBBean implements DBBeanLocal {
             // met testnr de persoon id opzoeken en daarmee de naam van de persoon weergeven
             t = (Test) (em.createNamedQuery("Test.findByTid").setParameter("tid", testnr).getSingleResult());
             System.out.println("Test gevonden "+t.toString());
-            System.out.println("Persoon nummer = "+t.getPid().toString());
+            System.out.println("Persoon nummer = " + t.getPid());
             em.merge(t);
             
             
@@ -71,9 +71,10 @@ public class DBBean implements DBBeanLocal {
         if(testresultaat.equals("positief")) {
             res = 1;
         }
-        else {
+        else{
             res = 2;
         }
+
         Test t;
         try {
             t = (Test) (em.createNamedQuery("Test.findByTid").setParameter("tid", testnr).getSingleResult());
@@ -113,6 +114,30 @@ public class DBBean implements DBBeanLocal {
             System.out.println(e);
             return false;
         }
+    }
+    public void nieuweTest(int pid){
+        int testnr = 0;
+        int testRes = 0;
+        try{
+            testnr = (int) em.createNamedQuery("Test.laatsteTid").getSingleResult();
+        }
+        catch(Exception e){
+            
+        }
+        testnr +=1;
+        System.out.println("nieuwe Test:"+testnr+"->"+pid+":"+testRes);
+        
+        Test res = new Test();
+        res.setTid(testnr);
+        res.setTestresultaat(testRes);
+        res.setPid(pid);
+        System.out.println(res.toString());
+        em.persist(res);   
+        
+    }
+    public List getBurgerTests(int pid){
+        System.out.println("zoek test van pid:"+pid);
+        return em.createNamedQuery("Test.findBurgerTests").setParameter("pid", pid).getResultList();
     }
     
     public int getScore(int id){

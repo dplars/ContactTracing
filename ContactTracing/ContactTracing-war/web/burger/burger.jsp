@@ -18,20 +18,23 @@
 </head> 
   
 <body> 
-        
+    <h2>
+    Status raadplegen
+    </h2>
+    <form action="ResController" method="Post">      
+        <input type="hidden" name="sub" value="burgerStatus">
+        <input type="Submit" value="Status">
+    </form>    
     
-    <h1 style="margin-bottem:10px;"> 
-        Huidige score: ${sessionScope.score}
-        
-        Huidige status: <label id = "STATUS"><p id = "STATUS" style="color:green;display:inline;">Veilig </p></label> 
-    </h1> 
-    <br> 
+  
+    
+    
+    
     <h2>
         Nieuw contact
     </h2>
     Zoek contactpersoon(Op basis van deel van naam of telefoonnummer):<br>
-    <input id="naam" type="text" name="naam" value=""><br> 
-    
+    <input id="naam" type="text" name="naam" value="">     
     <button onclick="zoek()"> 
         Zoek
     </button> 
@@ -42,20 +45,29 @@
         
         <select id = "burgers" name="Sburger"><%--aangevuld met zoek()--%></select>
     <br>
+    <h3>
+        Type contact:
+    </h3>
     <input type="radio" id="Type1" name="typeContact" value="1" checked="checked">
     <label for="Type1">1: Een nauw contact (afstand werd niet bewaard)</label><br>
     <input type="radio" id="Type2" name="typeContact" value="2">
     <label for="Type2">2: Een gewoon contact (afstand van 1,5m werd gerespecteerd)</label> <br>
     <input type="radio" id="Type3" name="typeContact" value="3">
     <label for="Type3">3: Een veilig contact (minder dan 15 minuten met afstand).</label>
-     <br>
-                
-        
+    
+    <br>     
+    <br>    
         <input type="hidden" name="sub" value="NieuwContact">
         <input type="Submit" value="Nieuw contact">
     </form>
     
-  
+    <h2>
+    Test aanvragen of raadplegen
+    </h2>
+    <form action="ResController" method="Post">      
+        <input type="hidden" name="sub" value="burgerTest">
+        <input type="Submit" value="Test">
+    </form>
     <script> 
         var namen = []; 
         var Teles = [];
@@ -86,17 +98,7 @@
         } 
         zoek();
     </script> 
-    <script>
-        function updateStatus(){
-            if(${sessionScope.score}>0){
-                document.getElementById('STATUS').innerHTML  = "<p style='color:red;display:inline;'>Onveilig </p>";
-            }
-            else{
-                document.getElementById('STATUS').innerHTML = "<p style='color:green;display:inline;'>Veilig</p>"
-            }
-        }
-        updateStatus();
-    </script> 
+    
 
 </body> 
     <jsp:include page="../footer.jsp"/>

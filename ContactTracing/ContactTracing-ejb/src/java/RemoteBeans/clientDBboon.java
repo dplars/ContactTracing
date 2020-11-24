@@ -33,10 +33,12 @@ public class clientDBboon implements clientDBboonRemote {
        long aant = 0;
        try{
        aant =(long) em.createNamedQuery("Contact.aantalCont").setParameter("type", Type).getSingleResult();
+        System.out.println("aantalContacten Type "+Type +"=>"+aant);
        }
        catch(Exception e){
+           System.out.println("Error:"+e);
        }
-       System.out.println("aantalContacten Type "+Type +"=>"+aant);
+       
        
        return aant;
    }
@@ -45,8 +47,10 @@ public class clientDBboon implements clientDBboonRemote {
        long aant = 0;
        try{
            aant =(long) em.createNamedQuery("Test.findAantal").getSingleResult();
+           System.out.println("aantalContacten Type "+aant);
        }
        catch(Exception e){
+           System.out.println("Error:"+e);
        }
        return aant;
    }

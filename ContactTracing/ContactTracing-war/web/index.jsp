@@ -27,7 +27,7 @@
         </form> 
         
         </form> 
-        <h2>Registreer?</h2>
+        <h2>Registreer? (moet misschien niet?)</h2>
          <form action="ResController" method="Post">       
                 <input type="hidden" name="sub" value="registreer">
                 <input type="Submit" value="registreer?">

@@ -252,11 +252,11 @@ public class ResController extends HttpServlet {
     }
     public void gotoPage(String page,HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         System.out.println("Ga naar:"+page);
-        //response.sendRedirect(page);
+        response.sendRedirect(page);
         //https://stackoverflow.com/questions/2047122/requestdispatcher-forward-vs-httpservletresponse-sendredirect#:~:text=The%20main%20important%20difference%20between,and%20it's%20visible%20to%20client.
         
-        RequestDispatcher view = request.getRequestDispatcher(page);
-        view.forward(request,response);
+        //RequestDispatcher view = request.getRequestDispatcher(page);
+        //view.forward(request,response);
     }   
     public void init(){
                 

@@ -31,6 +31,8 @@ public interface DBBeanLocal {
     
     public Boolean testEmpty(int testnr);
 
+    public List alleContacten(int id);
+    
     public List getBurgersNaam();
     public List getBurgersTele();
     public List getSortedBid();

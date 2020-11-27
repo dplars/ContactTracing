@@ -207,4 +207,13 @@ public class DBBean implements DBBeanLocal {
         
         em.persist(res);   
     }
+    public List alleContacten(int id) {
+        List res = null;
+        try{
+            res = em.createNamedQuery("Contact.findByPersoon1").setParameter("persoon1", id).getResultList();
+        }catch(Exception e){
+            
+        }
+        return res;
+    }
 }

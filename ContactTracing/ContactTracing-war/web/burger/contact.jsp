@@ -17,7 +17,7 @@
         Nieuw contact
     </h2>
     Zoek contactpersoon(Op basis van deel van naam of telefoonnummer):<br>
-    <input id="naam" type="text" name="naam" value="">     
+    <input id="naam" type="text" name="naam" value="" >     
     <button onclick="zoek()"> 
         Zoek
     </button> 
@@ -54,16 +54,13 @@
         var namen = []; 
         var Teles = [];
         var bids = [];
-        <c:forEach items="${burgersNaam}" var="naam">
-            namen.push("${naam}");
+        <c:forEach items="${burgerLijst}" var="b">
+            namen.push("${b.naam}");
+            Teles.push("${b.telefoonnummer}");
+            bids.push("${b.bid}");
         </c:forEach>
         
-        <c:forEach items="${burgersTele}" var="Tele">
-            Teles.push("${Tele}");
-        </c:forEach>
-        <c:forEach items="${burgersBid}" var="naam">
-            bids.push("${naam}");
-        </c:forEach>
+       
         function zoek() { 
             naam = (document.getElementById('naam').value).toLowerCase();;
             

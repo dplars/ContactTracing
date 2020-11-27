@@ -33,9 +33,8 @@ public interface DBBeanLocal {
 
     public List alleContacten(int id);
     
-    public List getBurgersNaam();
-    public List getBurgersTele();
-    public List getSortedBid();
+    public List getSortedBurgers();
+
     public void nieuwContact(int id1,int id2,int type);
 
 }

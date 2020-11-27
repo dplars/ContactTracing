@@ -28,9 +28,9 @@
         
         <table border = "1" style="width:100%">
             <tr>
-              <th>Nauwe contacten </th>
-              <th>Gewone contacten</th> 
-              <th>Veilige contacten</th>
+              <th>Nauwe contacten: <label id="cT1"></label></th>
+              <th>Gewone contacten: <label id="cT2"></label></th> 
+              <th>Veilige contacten: <label id="cT3"></label></th>
             </tr>
             <tr>
               <td>
@@ -47,19 +47,34 @@
         </table>
         
         <script>
+        var namen = []; 
+        var Teles = [];
+        var bids = [];
+        <c:forEach items="${burgerLijst}" var="b">
+            namen.push("${b.naam}");
+            Teles.push("${b.telefoonnummer}");
+            bids.push("${b.bid}");
+        </c:forEach>
+            
         var c1 = [];
         var c2 = [];
         var c3 = [];
         var count = 0;
         <c:forEach items="${contacten}" var="c">
+            entry = ""
+            for (var i = 0; i < bids.length; i++) {
+                if("${c.persoon2}"==bids[i]){
+                    entry = namen[i] +":"+ Teles[i];
+                }
+            }    
             if("${c.type}" == "1"){
-                c1.push("${c.persoon2}");
+                c1.push(entry);
             }
             else if(${c.type} == 2){
-                c2.push("${c.persoon2}");
+                c2.push(entry);
             }
             else if(${c.type} == 3){
-                c3.push("${c.persoon2}");
+                c3.push(entry);
             }
         </c:forEach>
         </script>
@@ -84,13 +99,21 @@
                 inhoud+=("<tr><td>"+c3[i]+ "</td></tr>");
             }
             document.getElementById('T3').innerHTML  = inhoud; 
+            
+            document.getElementById('cT1').innerHTML  = c1.length; 
+            document.getElementById('cT2').innerHTML  = c2.length; 
+            document.getElementById('cT3').innerHTML  = c3.length; 
         }
         updateTabel();
     </script>
      <script>
         function updateStatus(){
+            
             if(${sessionScope.score}>0){
-                document.getElementById('STATUS').innerHTML  = "<p style='color:red;display:inline;'>Onveilig </p>";
+                s="<p style='color:red;display:inline;'>Onveilig </p><br>Vraag een test aan:";        
+                s += "<form action='ResController' method='Post'><input type='hidden' name='sub' value='burgerTest'><input type='Submit'value='Test'></form>";
+                
+                document.getElementById('STATUS').innerHTML  = s;
             }
             else{
                 document.getElementById('STATUS').innerHTML = "<p style='color:green;display:inline;'>Veilig</p>"

@@ -18,22 +18,22 @@
 </head> 
   
 <body> 
-    <h2>
-    Status raadplegen
-    </h2>
+    <h2>Status raadplegen</h2>
+    
     <form action="ResController" method="Post">      
         <input type="hidden" name="sub" value="burgerStatus">
         <input type="Submit" value="Status">
-    </form>    
-    Nieuw contact
+    </form>   
+    
+    <h2>Nieuw contact</h2>
+    
     <form action="ResController" method="Post">      
         <input type="hidden" name="sub" value="burgerContact">
         <input type="Submit" value="Contact">
     </form>  
     
-    <h2>
-    Test aanvragen of raadplegen
-    </h2>
+    <h2>Test aanvragen of raadplegen</h2>
+    
     <form action="ResController" method="Post">      
         <input type="hidden" name="sub" value="burgerTest">
         <input type="Submit" value="Test">

@@ -57,10 +57,10 @@ VALUES (1, 1), (2, 2);
 
 INSERT INTO burger (bid, naam, score, telefoonnummer)
 VALUES
-	(1, '1', 0, '0'),
+	(1, '1n', 0, '0'),
 	(2, 'Burger', 0, '948372784'),
-	(3, '3', 0, '0'),
-	(4, '4', 1, '0'),
+	(3, '3n', 0, '0'),
+	(4, '4n', 1, '0'),
 	(5, 'Testnaam', 0, '458392093');
 
 INSERT INTO test (tid, testresultaat, pid)

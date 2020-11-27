@@ -177,14 +177,8 @@ public class DBBean implements DBBeanLocal {
             return false;
         }
     }
-    public List getSortedBid() {
-        return em.createNamedQuery("Burger.findSortedBid").getResultList();
-    }
-    public List getBurgersNaam() {
-        return em.createNamedQuery("Burger.findAllNaam").getResultList();
-    }
-    public List getBurgersTele() {
-        return em.createNamedQuery("Burger.findAllTele").getResultList();
+    public List getSortedBurgers(){
+        return em.createNamedQuery("Burger.findSortedBurgers").getResultList();
     }
     public void nieuwContact(int id1,int id2,int type) {
         int ncid = 1;

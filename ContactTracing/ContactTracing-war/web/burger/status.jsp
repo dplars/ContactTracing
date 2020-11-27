@@ -11,6 +11,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        
+        <style>
+            th, td {
+                vertical-align:top;
+            }
+        </style>
     </head>
     <body>
         <h1 style="margin-bottem:10px;"> 

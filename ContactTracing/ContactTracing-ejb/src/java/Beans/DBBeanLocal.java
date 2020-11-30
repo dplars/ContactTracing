@@ -20,6 +20,10 @@ public interface DBBeanLocal {
     public boolean isArts(int id);
 
     public boolean isBurger(int id);
+    
+    public void nieuweTest(int pid);
+    
+    public List getBurgerTests(int pid);
 
     public int getScore(int id);
     
@@ -27,9 +31,10 @@ public interface DBBeanLocal {
     
     public Boolean testEmpty(int testnr);
 
-    public List getBurgersNaam();
-    public List getBurgersTele();
-    public List getSortedBid();
+    public List alleContacten(int id);
+    
+    public List getSortedBurgers();
+
     public void nieuwContact(int id1,int id2,int type);
 
 }

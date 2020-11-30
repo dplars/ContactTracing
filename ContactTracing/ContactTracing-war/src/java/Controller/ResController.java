@@ -2,6 +2,7 @@
  */
 package Controller;
 import Beans.DBBeanLocal;
+import Beans.Test;
 import java.util.ArrayList;
 
 
@@ -39,7 +40,6 @@ public class ResController extends HttpServlet {
     
     @EJB private DBBeanLocal dbbean;
     
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -54,9 +54,7 @@ public class ResController extends HttpServlet {
             out.println("<h1>Servlet ResController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-        }
-        
-        
+        }    
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -84,17 +82,13 @@ public class ResController extends HttpServlet {
         //processRequest(request, response);
     HttpSession sessie = request.getSession(true);    
     System.out.println("In resController doPost");
-        
-    
+
     int id; 
-    String testResultaat;
     int testnr = 0;
+    
+    String testResultaat;
     String msg;
     switch (request.getParameter("sub")) {
-            /*
-            er staat hier wel vaak  gotoPage("arts/arts.jsp"
-            valt misschien te reduceren
-            */
             case "ingelogd": 
                 id = Integer.parseInt(request.getParameter("id"));
                 sessie.setAttribute("id", id);
@@ -107,7 +101,7 @@ public class ResController extends HttpServlet {
                     gotoPage("arts/arts.jsp",request,response);
                 }
                 else if(dbbean.isBurger(id)){
-                    gotoBurger(request,response);
+                    gotoPage("burger/burger.jsp",request,response);
                 }
                 else{
                     gotoPage("registreer.jsp",request,response);
@@ -117,7 +111,7 @@ public class ResController extends HttpServlet {
                 gotoPage("registreer.jsp",request,response);
                 break;
             case "burger":                
-                gotoBurger(request,response);
+                gotoPage("burger/burger.jsp",request,response);
                 break;
             case "arts":   
                 
@@ -197,7 +191,6 @@ public class ResController extends HttpServlet {
                 }
                 gotoPage("arts/arts.jsp", request, response);
                 break;
-            
                 
             case "NieuwContact":
                 int ID1 = (int) sessie.getAttribute("id");
@@ -205,7 +198,22 @@ public class ResController extends HttpServlet {
                 int contactId = Integer.parseInt(request.getParameter("Sburger"));
                 System.out.println("Gegeven:\n"+"\tType:"+typeContact+"\tContactID:"+contactId+"\tEigenID:"+ID1);
                 dbbean.nieuwContact(ID1,contactId,typeContact);
-                response.sendRedirect("burger/burger.jsp");
+                gotoPage("burger/contact.jsp", request, response);
+                break;
+            case "nieuweTest":
+                id = (int)sessie.getAttribute("id");
+                dbbean.nieuweTest(id);
+                gotoBurgerTest(request, response);
+                gotoPage("burger/test.jsp", request, response);
+                break;
+            case "burgerContact":
+                gotoPage("burger/contact.jsp", request, response);
+                break;
+            case "burgerTest":
+                gotoBurgerTest(request, response);
+                break;
+            case "burgerStatus":
+                gotoBurgerStatus(request, response);
                 break;
             case "nieuwAccount":
                 response.sendRedirect("index.jsp");
@@ -215,15 +223,26 @@ public class ResController extends HttpServlet {
                 response.sendRedirect("index.jsp");
                 break;
         }
-  
     }
-    public void gotoBurger(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public void gotoBurgerTest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        HttpSession sessie = request.getSession(true);
+        int id = (int)sessie.getAttribute("id");
+        List<Test> testLijst = dbbean.getBurgerTests(id);
+        for(Test t:testLijst){
+            System.out.println("tid:"+t.getTid());
+        }
+        getServletContext().setAttribute("testLijst",testLijst);
+        gotoPage("burger/test.jsp", request, response);
+    }
+    public void gotoBurgerStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         HttpSession sessie = request.getSession(true);
         int id = (int) sessie.getAttribute("id");
         int score = dbbean.getScore(id);
         sessie.setAttribute("score", score); 
-        System.out.println("Score: "+score);
-        gotoPage("burger/burger.jsp",request,response);
+        
+        List contacten = dbbean.alleContacten(id);
+        sessie.setAttribute("contacten", contacten); 
+        gotoPage("burger/status.jsp",request,response);
     }
     public void gotoPage(String page,HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         System.out.println("Ga naar:"+page);
@@ -236,12 +255,9 @@ public class ResController extends HttpServlet {
     public void init(){
                 
         System.out.println("init");
-        List naamLijst = dbbean.getBurgersNaam();
-        List teleLijst = dbbean.getBurgersTele();
-        List bidLijst = dbbean.getSortedBid();
-        getServletContext().setAttribute("burgersNaam",naamLijst);
-        getServletContext().setAttribute("burgersTele",teleLijst);
-        getServletContext().setAttribute("burgersBid",bidLijst);
+        List burgerLijst = dbbean.getSortedBurgers();
+        getServletContext().setAttribute("burgerLijst",burgerLijst);
+ 
         
         System.out.println("Einde init");
          
@@ -252,4 +268,3 @@ public class ResController extends HttpServlet {
     }// </editor-fold>
     
 }
-

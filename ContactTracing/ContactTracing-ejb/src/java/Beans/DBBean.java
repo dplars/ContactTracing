@@ -78,6 +78,22 @@ public class DBBean implements DBBeanLocal {
         try {
             t = (Test) (em.createNamedQuery("Test.findByTid").setParameter("tid", testnr).getSingleResult());
             t.setTestresultaat(res);
+            int pid = t.getPid();
+            Burger b = (Burger) (em.createNamedQuery("Burger.findByBid").setParameter("bid", pid).getSingleResult());
+            if (res == 1) {
+                // positief, burger en contacten aanpassen
+                // scores van alle nauwe contacten op 1 zetten (type 1 en type 2) bij positief resultaat
+                
+            }
+            else {
+                // negatief, burger op negatief zetten
+                b.setScore(0);
+            }
+            
+            
+            
+            
+            b.setScore(res);
             return true;
         }
         catch (NoResultException e) {

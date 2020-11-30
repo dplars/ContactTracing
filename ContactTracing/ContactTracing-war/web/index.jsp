@@ -10,9 +10,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Index Pagina</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+       <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     </head>
     <body>
+        <div class="container" style="margin-top: 10%">
+    <div class="row">
+		<div class="span12">
+                    <div id="legend">
+			      <legend class="">Index</legend>
+                    </div>
         <form action="<c:url value='ResController'/>" method="Post">
              
             Geef hieronder uw accountnummer<br>
@@ -44,6 +54,7 @@
                 <input type="hidden" name="sub" value="arts">
                 <input type="Submit" value="Arts?">
         </form>
+                </div></div></div>
     </body>
     
     <jsp:include page="footer.jsp"/>

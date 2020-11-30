@@ -141,17 +141,17 @@ public class ResController extends HttpServlet {
 
                         if (burgernaam.equals("Geen burger")) {
                             String err = "Geen geldige burger gevonden";
-                            request.setAttribute("error", err);
+                            sessie.setAttribute("error", err);
                             gotoPage("arts/arts.jsp",request, response);
                         }
                         else if (burgernaam.equals("Geen test")) {
                             String err = "Geen geldige test nummer ingegeven";
-                            request.setAttribute("error", err);
+                            sessie.setAttribute("error", err);
                             gotoPage("arts/arts.jsp",request, response);
                         }
                         else {
-                            request.setAttribute("burgernaam", burgernaam);
-
+                            //request.setAttribute("burgernaam", burgernaam); 
+                            sessie.setAttribute("burgernaam", burgernaam);
                             System.out.println("burgernaam "+ burgernaam);
                             gotoPage("arts/bevestig.jsp", request, response);
                         }
@@ -159,14 +159,14 @@ public class ResController extends HttpServlet {
                     else {
                         // er is een grotere fout gebeurt
                         String err = "Een grote fout gebeurt!";
-                            request.setAttribute("error", err);
+                            sessie.setAttribute("error", err);
                             gotoPage("arts/arts.jsp",request, response);
                     }
                 }
                 else {
                     // Test is niet leeg
                     String err = "Deze test is al ingevuld!";
-                    request.setAttribute("error", err);
+                    sessie.setAttribute("error", err);
                     gotoPage("arts/arts.jsp",request, response);
                 }
                 System.out.println("einde van doorgaan");
@@ -177,8 +177,8 @@ public class ResController extends HttpServlet {
                 //    testnr =  Integer.parseInt((String) sessie.getAttribute("testnr"));
                 //}
                 
-                request.setAttribute("msg", msg);
-                request.setAttribute("testnr", testnr);
+                sessie.setAttribute("msg", msg);
+                sessie.setAttribute("testnr", testnr);
                 //gotoPage("arts.jsp",request, response);
                 gotoPage("arts/arts.jsp", request, response);
                 break;

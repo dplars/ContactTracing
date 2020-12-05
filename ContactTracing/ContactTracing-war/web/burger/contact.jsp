@@ -24,8 +24,7 @@
                     <div id="legend">
 			      <legend class="">Nieuw contact</legend>
                     </div>
-                </div>
-    </div></div>
+                
         <h2>
         Nieuw contact
     </h2>
@@ -37,7 +36,7 @@
     <br>
     
     
-    <form action="ResController" method="Post">   
+    <form action="../ResController" method="Post">   
         
         <select id = "burgers" name="Sburger"><%--aangevuld met zoek()--%></select>
     <br>
@@ -58,7 +57,7 @@
     </form>
         
         <br>
-        <form action="ResController" method="Post">       
+        <form action="../ResController" method="Post">       
                 <input type="hidden" name="sub" value="burger">
                 <input type="Submit" value="Terug">
         </form>
@@ -90,6 +89,8 @@
         } 
         zoek();
     </script> 
+    </div>
+    </div></div>
     </body>
     
     <jsp:include page="../footer.jsp"/>

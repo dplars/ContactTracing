@@ -51,7 +51,7 @@
                     <div id="legend">
 			      <legend class="">Arts</legend>
                     </div>
-        <!--<h1>Dit is de arts pagina</h1>-->
+        <h1>Gegroet, <%= request.getUserPrincipal() %></h1>
         <form method="POST" action="../ResController" id="artsform">
             <a style="color:red;"><c:if test="${!empty sessionScope.error}">
                 ${sessionScope.error}<br>

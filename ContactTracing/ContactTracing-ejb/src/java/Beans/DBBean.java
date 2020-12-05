@@ -5,6 +5,7 @@
  */
 package Beans;
 
+import static java.lang.Integer.min;
 import java.util.Iterator;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -69,10 +70,10 @@ public class DBBean implements DBBeanLocal {
     public Boolean schrijfTestWeg(int testnr, String testresultaat) {
         int res = 0;
         if(testresultaat.equals("positief")) {
-            res = 1;
+            res = 2;
         }
         else{
-            res = 2;
+            res = 1;
         }
 
         Test t;
@@ -81,14 +82,26 @@ public class DBBean implements DBBeanLocal {
             t.setTestresultaat(res);
             int pid = t.getPid();
             Burger b = (Burger) (em.createNamedQuery("Burger.findByBid").setParameter("bid", pid).getSingleResult());
-            if (res == 1) {
+            if (res == 2) {
                 // positief, burger en contacten aanpassen
                 // scores van alle nauwe contacten op 1 zetten (type 1 en type 2) bij positief resultaat
+                // get alle contacten;
+                List<Contact> contacten = alleContacten(b.getBid());    // geeft volledige contact terug
+                for(Contact c: contacten) {
+                    int pers1 = c.getPersoon1();
+                    Burger b1 = (Burger) (em.createNamedQuery("Burger.findByBid").setParameter("Bid", pers1).getSingleResult());
+                    b1.setScore(min(b1.getScore()+1, 2));    // verhoog score met 1
+                    em.persist(b1);
+                }
+                
+                b.setScore(min(b.getScore()+1, 2));
+                em.persist(b);
                 
             }
             else {
                 // negatief, burger op negatief zetten
                 b.setScore(0);
+                em.persist(b);
             }
             
             

@@ -62,7 +62,7 @@
              
              if(Tres[0] != 0){
                 s +=  "<h1>Vraag een nieuwe test aan:</h1>";
-                s +="<form action='ResController' method='Post'>  ";
+                s +="<form action='../ResController' method='Post'>  ";
                 s +="<input type='hidden' name='sub' value='nieuweTest'>";
                 s+="<input type='Submit' value='Nieuwe test'>";
                 s+="</form>";
@@ -76,7 +76,7 @@
       
         </script>
         <br><br>
-        <form action="ResController" method="Post">       
+        <form action="../ResController" method="Post">       
                 <input type="hidden" name="sub" value="burger">
                 <input type="Submit" value="Terug">
         </form>

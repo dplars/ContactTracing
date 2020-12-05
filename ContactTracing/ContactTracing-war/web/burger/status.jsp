@@ -122,7 +122,7 @@
         updateStatus();
     </script> 
     <br>
-    <form action="ResController" method="Post">       
+    <form action="../ResController" method="Post">       
                 <input type="hidden" name="sub" value="burger">
                 <input type="Submit" value="Terug">
         </form>

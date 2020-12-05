@@ -8,12 +8,15 @@ import java.util.ArrayList;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.Principal;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
@@ -88,6 +91,8 @@ public class ResController extends HttpServlet {
     
     String testResultaat;
     String msg;
+    Principal user;
+    //SessionContext ctx = null;
     switch (request.getParameter("sub")) {
             case "ingelogd": 
                 id = Integer.parseInt(request.getParameter("id"));
@@ -110,7 +115,8 @@ public class ResController extends HttpServlet {
             case "registreer":    
                 gotoPage("registreer.jsp",request,response);
                 break;
-            case "burger":                
+            case "burger":   
+                
                 gotoPage("burger/burger.jsp",request,response);
                 break;
             case "arts":   
@@ -118,7 +124,10 @@ public class ResController extends HttpServlet {
                 gotoPage("arts/arts.jsp",request,response);
                 break;
             case "doorgaan":
-                
+                user = request.getUserPrincipal();
+                    System.out.println("naam: "+user.getName());
+                    sessie.setAttribute("naam", user.getName());
+                    
                 System.out.println("bij doorgaan gekomen");
                 // komende van arts.jsp, gaande naar bevestig.jsp
                 testnr = Integer.parseInt(request.getParameter("testnr"));
@@ -213,6 +222,10 @@ public class ResController extends HttpServlet {
                 gotoBurgerTest(request, response);
                 break;
             case "burgerStatus":
+                // user setten wanneer keuze gemaakt is en gebruiker reeds ingelogd is.
+                user = request.getUserPrincipal();
+                    System.out.println("naam: "+user.getName());
+                    sessie.setAttribute("naam", user.getName());
                 gotoBurgerStatus(request, response);
                 break;
             case "nieuwAccount":

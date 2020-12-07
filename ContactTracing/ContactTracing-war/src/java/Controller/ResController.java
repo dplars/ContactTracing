@@ -91,43 +91,20 @@ public class ResController extends HttpServlet {
     
     String testResultaat;
     String msg;
-    Principal user;
     //SessionContext ctx = null;
     switch (request.getParameter("sub")) {
-            case "ingelogd": 
-                id = Integer.parseInt(request.getParameter("id"));
-                sessie.setAttribute("id", id);
-                if(dbbean.isArts(id)&& dbbean.isBurger(id)){
-                    System.out.println("Is beide");
-                    gotoPage("keuze.jsp",request,response);
-                    //naar een keuze pagina 
-                }
-                else if(dbbean.isArts(id)){
-                    gotoPage("arts/arts.jsp",request,response);
-                }
-                else if(dbbean.isBurger(id)){
-                    gotoPage("burger/burger.jsp",request,response);
-                }
-                else{
-                    gotoPage("registreer.jsp",request,response);
-                }
-                break;
             case "registreer":    
                 gotoPage("registreer.jsp",request,response);
                 break;
             case "burger":   
-                
                 gotoPage("burger/burger.jsp",request,response);
                 break;
             case "arts":   
-                
                 gotoPage("arts/arts.jsp",request,response);
                 break;
             case "doorgaan":
-                user = request.getUserPrincipal();
-                    System.out.println("naam: "+user.getName());
-                    sessie.setAttribute("naam", user.getName());
-                    
+                setSessionId(request);
+    
                 System.out.println("bij doorgaan gekomen");
                 // komende van arts.jsp, gaande naar bevestig.jsp
                 testnr = Integer.parseInt(request.getParameter("testnr"));
@@ -176,13 +153,8 @@ public class ResController extends HttpServlet {
                 break;
             case "ntcorrect":
                 msg = "Vul testresultaat opnieuw in";
-                //if (testnr == 0) {
-                //    testnr =  Integer.parseInt((String) sessie.getAttribute("testnr"));
-                //}
-                
                 sessie.setAttribute("msg", msg);
                 sessie.setAttribute("testnr", testnr);
-                //gotoPage("arts.jsp",request, response);
                 gotoPage("arts/arts.jsp", request, response);
                 break;
             case "correct":
@@ -213,19 +185,18 @@ public class ResController extends HttpServlet {
                 id = (int)sessie.getAttribute("id");
                 dbbean.nieuweTest(id);
                 gotoBurgerTest(request, response);
-                gotoPage("burger/test.jsp", request, response);
                 break;
             case "burgerContact":
+                setSessionId(request);
                 gotoPage("burger/contact.jsp", request, response);
                 break;
             case "burgerTest":
+                setSessionId(request);
                 gotoBurgerTest(request, response);
                 break;
             case "burgerStatus":
-                // user setten wanneer keuze gemaakt is en gebruiker reeds ingelogd is.
-                user = request.getUserPrincipal();
-                    System.out.println("naam: "+user.getName());
-                    sessie.setAttribute("naam", user.getName());
+                setSessionId(request);
+                           
                 gotoBurgerStatus(request, response);
                 break;
             case "nieuwAccount":
@@ -236,6 +207,16 @@ public class ResController extends HttpServlet {
                 response.sendRedirect("index.jsp");
                 break;
         }
+    }
+    public void setSessionId(HttpServletRequest request){
+        HttpSession sessie = request.getSession(true);    
+        Principal user;
+        user = request.getUserPrincipal();
+        System.out.println("naam: "+user.getName());
+        int id = dbbean.getBid(user.getName());
+        System.out.println("Gevonden id:"+id);
+        sessie.setAttribute("id", id);
+        sessie.setAttribute("naam", user.getName());
     }
     public void gotoBurgerTest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         HttpSession sessie = request.getSession(true);

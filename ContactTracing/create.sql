@@ -39,6 +39,7 @@ CREATE TABLE contact (
 );
 
 CREATE TABLE burger (
+  gebruikersnaam varchar(20) references gebruikers,
   bid int  NOT NULL ,
   naam varchar(22),
   score int,
@@ -55,14 +56,6 @@ CREATE TABLE arts (
 INSERT INTO arts (aid, naam)
 VALUES (1, 1), (2, 2);
 
-INSERT INTO burger (bid, naam, score, telefoonnummer)
-VALUES
-	(1, '1n', 0, '0'),
-	(2, 'Burger', 0, '948372784'),
-	(3, '3n', 0, '0'),
-	(4, '4n', 1, '0'),
-	(5, 'Testnaam', 0, '458392093');
-
 INSERT INTO test (tid, testresultaat, pid)
 VALUES
 	(1, 0, 3),
@@ -75,6 +68,15 @@ insert into gebruikers values ('jos', 'js');
 insert into gebruikers values ('louis', 'ls');
 insert into gebruikers values ('tim', 'tm');
 insert into gebruikers values ('sara', 'sa');
+
+INSERT INTO burger (gebruikersnaam,bid, naam, score, telefoonnummer)
+VALUES
+	('jef',1, 'Jef', 0, '0'),
+	('jos',2, 'Jos', 0, '948372784'),
+	('louis',3, 'Louis', 0, '0'),
+	('tim',4, 'Tim', 1, '0'),
+	('sara',5, 'Sara', 0, '458392093');
+
 
 insert into groepen values ('jef', 'burger' );
 insert into groepen values ('jos', 'burger' );

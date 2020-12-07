@@ -23,18 +23,10 @@
                     <div id="legend">
 			      <legend class="">Index</legend>
                     </div>
-        <form action="<c:url value='ResController'/>" method="Post">
-             
-            Geef hieronder uw accountnummer<br>
-                1 is beide<br>
-                2 is arts<br>
-                3 is burger met score 0 (groen)<br>
-                4 is burger met score 1 (rood)<br>
-            Nummer <input type="text" name="id" value="2"><br>
-            <input type="hidden" name="sub" value="ingelogd">
-            <input type="Submit" value="Volgend">
+             Burger: Jef en jos
+                Tim score 1
+             Arts: louis
 
-        </form> 
         
         </form> 
         <h2>Registreer? (moet misschien niet?)</h2>
@@ -46,7 +38,7 @@
         Inloggen als:
          <form action="ResController" method="Post">       
                 <input type="hidden" name="sub" value="burger">
-                <input type="Submit" value="Nog niet gebruiken: burger.jsp verwacht een knr in de sessie => via volgend naar burger gaan">
+                <input type="Submit" value="Burger?">
         </form>
         </form> 
         
@@ -56,6 +48,4 @@
         </form>
                 </div></div></div>
     </body>
-    
-    <jsp:include page="footer.jsp"/>
 </html>

@@ -37,4 +37,6 @@ public interface DBBeanLocal {
 
     public void nieuwContact(int id1,int id2,int type);
 
+    public int getBid(String name);
+
 }

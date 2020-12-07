@@ -10,6 +10,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -35,7 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Burger.findAllNaam", query = "SELECT b.naam FROM Burger b ORDER BY b.naam")
     , @NamedQuery(name = "Burger.findAllTele", query = "SELECT b.telefoonnummer FROM Burger b ORDER BY b.naam")
     , @NamedQuery(name = "Burger.findSortedBurgers", query = "SELECT b FROM Burger b ORDER BY b.naam")
-    , @NamedQuery(name = "Burger.findAantal", query = "SELECT count(b) FROM Burger b")})
+    , @NamedQuery(name = "Burger.findAantal", query = "SELECT count(b) FROM Burger b")
+    , @NamedQuery(name = "Burger.getBid", query = "SELECT b.bid FROM Burger b WHERE b.gebruikersnaam = :gebruikersnaam")})
 public class Burger implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,6 +55,9 @@ public class Burger implements Serializable {
     @Size(max = 22)
     @Column(name = "TELEFOONNUMMER")
     private String telefoonnummer;
+    @JoinColumn(name = "GEBRUIKERSNAAM", referencedColumnName = "GEBRUIKERSNAAM")
+    @ManyToOne
+    private Gebruikers gebruikersnaam;
 
     public Burger() {
     }
@@ -90,6 +96,14 @@ public class Burger implements Serializable {
 
     public void setTelefoonnummer(String telefoonnummer) {
         this.telefoonnummer = telefoonnummer;
+    }
+
+    public Gebruikers getGebruikersnaam() {
+        return gebruikersnaam;
+    }
+
+    public void setGebruikersnaam(Gebruikers gebruikersnaam) {
+        this.gebruikersnaam = gebruikersnaam;
     }
 
     @Override

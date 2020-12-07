@@ -111,7 +111,7 @@
             
             if(${sessionScope.score}>0){
                 s="<p style='color:red;display:inline;'>Onveilig </p><br>Vraag een test aan:";        
-                s += "<form action='ResController' method='Post'><input type='hidden' name='sub' value='burgerTest'><input type='Submit'value='Test'></form>";
+                s += "<form action='../ResController' method='Post'><input type='hidden' name='sub' value='burgerTest'><input type='Submit'value='Test'></form>";
                 
                 document.getElementById('STATUS').innerHTML  = s;
             }

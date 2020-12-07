@@ -40,10 +40,10 @@
             for (var i = 0; i < arrayLength; i++) {
                 if(tid == Ttid[i]){
                     if(Tres[i]==1){
-                        entry = "Positief";
+                        entry = "Negatief";
                     }
                     else if(Tres[i]==2){
-                        entry = "Negatief";
+                        entry = "Positief";
                     }
                     else{
                         entry = "In behandeling";

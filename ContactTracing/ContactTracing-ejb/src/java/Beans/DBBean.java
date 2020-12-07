@@ -89,7 +89,7 @@ public class DBBean implements DBBeanLocal {
                 List<Contact> contacten = alleContacten(b.getBid());    // geeft volledige contact terug
                 for(Contact c: contacten) {
                     int pers1 = c.getPersoon1();
-                    Burger b1 = (Burger) (em.createNamedQuery("Burger.findByBid").setParameter("Bid", pers1).getSingleResult());
+                    Burger b1 = (Burger) (em.createNamedQuery("Burger.findByBid").setParameter("bid", pers1).getSingleResult());
                     b1.setScore(min(b1.getScore()+1, 2));    // verhoog score met 1
                     em.persist(b1);
                 }
@@ -103,11 +103,8 @@ public class DBBean implements DBBeanLocal {
                 b.setScore(0);
                 em.persist(b);
             }
-            
-            
-            
-            
-            b.setScore(res);
+
+            //b.setScore(res);
             return true;
         }
         catch (NoResultException e) {
@@ -223,13 +220,25 @@ public class DBBean implements DBBeanLocal {
         System.out.println(id2);
         System.out.println(type);
         Contact res = new Contact(ncid);
-        //res.setCid(ncid);
         res.setPersoon1(id1);
         res.setPersoon2(id2);
         res.setType(type);
         
         em.persist(res);   
+        //contact toegevoegd
+        //mogelijk score aanpassen:
+        Burger contactPersoon = (Burger) (em.createNamedQuery("Burger.findByBid").setParameter("bid", id2).getSingleResult());
+        int score = contactPersoon.getScore();
+        System.out.println("Score van contactpersoon:"+score);
+        if(score>0 && (type == 1 || type == 2)){
+            System.out.println("Gevaar");
+            Burger b = (Burger) (em.createNamedQuery("Burger.findByBid").setParameter("bid", id1).getSingleResult());
+            b.setScore(b.getScore()+1);
+            em.persist(b);
+        }
+
     }
+    
     public List alleContacten(int id) {
         List res = null;
         try{
@@ -238,5 +247,21 @@ public class DBBean implements DBBeanLocal {
             
         }
         return res;
+    }
+
+    public int getBid(String name) {
+        System.out.println("Start getBid(");
+        int bid = 0;
+        try{
+            System.out.println("Voor");
+            Gebruikers g = (Gebruikers) em.createNamedQuery("Gebruikers.findByGebruikersnaam").setParameter("gebruikersnaam", name).getSingleResult();
+            bid = (int) em.createNamedQuery("Burger.getBid").setParameter("gebruikersnaam", g).getSingleResult();
+            System.out.println("Legit Gevonden bid:");
+       
+        }catch(Exception e){
+            System.out.println("Exception"+e);
+        }
+        System.out.println("Gevonden bid hier:"+bid);
+        return bid;
     }
 }

@@ -93,6 +93,7 @@ public class ResController extends HttpServlet {
     String msg;
     //SessionContext ctx = null;
     switch (request.getParameter("sub")) {
+            
             case "registreer":    
                 gotoPage("registreer.jsp",request,response);
                 break;
@@ -102,9 +103,7 @@ public class ResController extends HttpServlet {
             case "arts":   
                 gotoPage("arts/arts.jsp",request,response);
                 break;
-            case "doorgaan":
-                setSessionId(request);
-    
+            case "doorgaan":    
                 System.out.println("bij doorgaan gekomen");
                 // komende van arts.jsp, gaande naar bevestig.jsp
                 testnr = Integer.parseInt(request.getParameter("testnr"));

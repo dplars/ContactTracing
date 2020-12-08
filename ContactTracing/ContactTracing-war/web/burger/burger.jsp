@@ -93,9 +93,10 @@
         }
         updateStatus();
     </script> 
+    <jsp:include page="../footer.jsp"/>
                 </div></div></div>
 
 </body> 
-    <jsp:include page="../footer.jsp"/>
+    
     
 </html>       

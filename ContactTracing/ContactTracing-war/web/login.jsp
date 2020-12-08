@@ -52,6 +52,11 @@
 			    </div>
 			  </fieldset>
 			</form>
+                        <form action="../ResController" method="Post">       
+                                    <input type="hidden" name="sub" value="afbreken">
+                                    <input type="Submit" value="Terug">
+                        </form>
+                        </body>
 		</div>
 	</div>
 </div>

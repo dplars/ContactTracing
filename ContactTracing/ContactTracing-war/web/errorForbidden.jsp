@@ -1,7 +1,7 @@
 <%-- 
-    Document   : loginError
-    Created on : Nov 16, 2020, 6:23:45 PM
-    Author     : larsdepauw
+    Document   : errorForbidden
+    Created on : Dec 8, 2020, 12:57:39 PM
+    Author     : dehan
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -21,7 +21,7 @@
     <div class="row">
 		<div class="span12">
                     <div id="legend">
-			      <legend class="">Foutje</legend>
+			      <legend class="">Forbidden</legend>
                     </div>
                     <form action="../ResController" method="Post">       
                                     <input type="hidden" name="sub" value="afbreken">

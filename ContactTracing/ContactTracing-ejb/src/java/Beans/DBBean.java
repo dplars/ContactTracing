@@ -90,11 +90,11 @@ public class DBBean implements DBBeanLocal {
                 for(Contact c: contacten) {
                     int pers1 = c.getPersoon1();
                     Burger b1 = (Burger) (em.createNamedQuery("Burger.findByBid").setParameter("bid", pers1).getSingleResult());
-                    b1.setScore(min(b1.getScore()+1, 2));    // verhoog score met 1
+                    b1.setScore(b1.getScore()+1);    // verhoog score met 1
                     em.persist(b1);
                 }
                 
-                b.setScore(min(b.getScore()+1, 2));
+                b.setScore(b.getScore()+1);
                 em.persist(b);
                 
             }
@@ -255,6 +255,7 @@ public class DBBean implements DBBeanLocal {
         try{
             System.out.println("Voor");
             Gebruikers g = (Gebruikers) em.createNamedQuery("Gebruikers.findByGebruikersnaam").setParameter("gebruikersnaam", name).getSingleResult();
+            System.out.println("Tussen/"+g);
             bid = (int) em.createNamedQuery("Burger.getBid").setParameter("gebruikersnaam", g).getSingleResult();
             System.out.println("Legit Gevonden bid:");
        

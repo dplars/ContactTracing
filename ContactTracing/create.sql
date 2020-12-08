@@ -58,28 +58,48 @@ VALUES (1, 1), (2, 2);
 
 INSERT INTO test (tid, testresultaat, pid)
 VALUES
-	(1, 0, 3),
+	(1, 1, 1),
 	(2, 0, 2),
-	(3, 0, 1),
+	(3, 0, 3),
 	(4, 0, 5);
 
 insert into gebruikers values ('jef', 'jf');
 insert into gebruikers values ('jos', 'js');
+insert into gebruikers values ('bert', 'bt');
+insert into gebruikers values ('thomas', 'ts');
+
 insert into gebruikers values ('louis', 'ls');
 insert into gebruikers values ('tim', 'tm');
+
 insert into gebruikers values ('sara', 'sa');
 
 INSERT INTO burger (gebruikersnaam,bid, naam, score, telefoonnummer)
 VALUES
-	('jef',1, 'Jef', 0, '0'),
+	('jef',1, 'Jef', 0, '0440126'),
 	('jos',2, 'Jos', 0, '948372784'),
-	('louis',3, 'Louis', 0, '0'),
-	('tim',4, 'Tim', 1, '0'),
+        ('bert',3, 'Bert', 0, '54651231'),
+        ('thomas',4, 'Thomas',1, '490108'),
 	('sara',5, 'Sara', 0, '458392093');
 
 
+INSERT INTO contact (cid,persoon1,persoon2,type)
+VALUES
+        (1,1,2,1),
+        (2,1,2,2),
+        (3,1,2,3),
+        (4,3,4,1),
+        (5,5,2,1),
+        (6,1,4,2),
+        (7,3,2,2),
+        (8,2,3,3),
+        (9,4,2,3);
+
 insert into groepen values ('jef', 'burger' );
 insert into groepen values ('jos', 'burger' );
+insert into groepen values ('bert', 'burger' );
+insert into groepen values ('thomas', 'burger' );
+
 insert into groepen values ('louis', 'arts' );
 insert into groepen values ('tim', 'arts' );
+
 insert into groepen values ('sara', 'admin' );

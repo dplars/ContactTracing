@@ -24,7 +24,7 @@
 			      <legend class="">Index</legend>
                     </div>
              Burger: Jef en jos
-                Tim score 1
+                thomas score 1
              Arts: louis
 
         
@@ -49,14 +49,4 @@
                 </div></div></div>
     </body>
    
-
-    
-
-
-
-
-
-
-
-
 </html>

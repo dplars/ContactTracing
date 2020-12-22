@@ -16,16 +16,16 @@ import javax.ejb.Local;
 public interface DBBeanLocal {
     
     public String getTestBurgernaam(int testnr);
-
-    public boolean isArts(int id);
-
-    public boolean isBurger(int id);
     
     public void nieuweTest(int pid);
     
     public List getBurgerTests(int pid);
 
     public int getScore(int id);
+    
+    public int getMelding(int id);
+    
+    public boolean setMelding(int id,int val);
     
     public Boolean schrijfTestWeg(int testnr, String testresultaat);
     

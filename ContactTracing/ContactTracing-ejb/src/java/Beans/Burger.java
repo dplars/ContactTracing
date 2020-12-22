@@ -32,10 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Burger.findByNaam", query = "SELECT b FROM Burger b WHERE b.naam = :naam")
     , @NamedQuery(name = "Burger.findByScore", query = "SELECT b FROM Burger b WHERE b.score = :score")
     , @NamedQuery(name = "Burger.findByTelefoonnummer", query = "SELECT b FROM Burger b WHERE b.telefoonnummer = :telefoonnummer")
-    , @NamedQuery(name = "Burger.findScoreByBid", query = "SELECT b.score FROM Burger b WHERE b.bid = :bid")
-    , @NamedQuery(name = "Burger.findSortedBid", query = "SELECT b.bid FROM Burger b ORDER BY b.naam")    
-    , @NamedQuery(name = "Burger.findAllNaam", query = "SELECT b.naam FROM Burger b ORDER BY b.naam")
-    , @NamedQuery(name = "Burger.findAllTele", query = "SELECT b.telefoonnummer FROM Burger b ORDER BY b.naam")
+    , @NamedQuery(name = "Burger.findByMelding", query = "SELECT b FROM Burger b WHERE b.melding = :melding")
+    , @NamedQuery(name = "Burger.findScoreByBid", query = "SELECT b.score FROM Burger b WHERE b.bid = :bid") 
+    , @NamedQuery(name = "Burger.findMeldingByBid", query = "SELECT b.melding FROM Burger b WHERE b.bid = :bid") 
     , @NamedQuery(name = "Burger.findSortedBurgers", query = "SELECT b FROM Burger b ORDER BY b.naam")
     , @NamedQuery(name = "Burger.findAantal", query = "SELECT count(b) FROM Burger b")
     , @NamedQuery(name = "Burger.getBid", query = "SELECT b.bid FROM Burger b WHERE b.gebruikersnaam = :gebruikersnaam")})
@@ -55,6 +54,8 @@ public class Burger implements Serializable {
     @Size(max = 22)
     @Column(name = "TELEFOONNUMMER")
     private String telefoonnummer;
+    @Column(name = "MELDING")
+    private Integer melding;
     @JoinColumn(name = "GEBRUIKERSNAAM", referencedColumnName = "GEBRUIKERSNAAM")
     @ManyToOne
     private Gebruikers gebruikersnaam;
@@ -96,6 +97,14 @@ public class Burger implements Serializable {
 
     public void setTelefoonnummer(String telefoonnummer) {
         this.telefoonnummer = telefoonnummer;
+    }
+
+    public Integer getMelding() {
+        return melding;
+    }
+
+    public void setMelding(Integer melding) {
+        this.melding = melding;
     }
 
     public Gebruikers getGebruikersnaam() {

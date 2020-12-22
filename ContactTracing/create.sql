@@ -44,6 +44,7 @@ CREATE TABLE burger (
   naam varchar(22),
   score int,
   telefoonnummer varchar(22),
+  melding int,
   PRIMARY KEY (bid)
 ) ;
 
@@ -73,13 +74,13 @@ insert into gebruikers values ('tim', 'tm');
 
 insert into gebruikers values ('sara', 'sa');
 
-INSERT INTO burger (gebruikersnaam,bid, naam, score, telefoonnummer)
+INSERT INTO burger (gebruikersnaam,bid, naam, score, telefoonnummer,melding)
 VALUES
-	('jef',1, 'Jef', 0, '0440126'),
-	('jos',2, 'Jos', 0, '948372784'),
-        ('bert',3, 'Bert', 0, '54651231'),
-        ('thomas',4, 'Thomas',1, '490108'),
-	('sara',5, 'Sara', 0, '458392093');
+	('jef',1, 'Jef', 0, '0440126',0),
+	('jos',2, 'Jos', 0, '948372784',0),
+        ('bert',3, 'Bert', 0, '54651231',0),
+        ('thomas',4, 'Thomas',1, '490108',0),
+	('sara',5, 'Sara', 0, '458392093',0);
 
 
 INSERT INTO contact (cid,persoon1,persoon2,type)

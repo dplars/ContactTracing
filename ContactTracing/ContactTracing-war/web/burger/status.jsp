@@ -40,7 +40,7 @@
         </h1> 
         <br>
         
-        
+       
         <table border = "1" style="width:100%">
             <tr>
               <th>Nauwe contacten: <label id="cT1"></label></th>
@@ -135,6 +135,23 @@
             }
         }
         updateStatus();
+    </script> 
+    <script>
+        function updateMelding(){
+            if (${sessionScope.melding} == null) {
+            } else {
+                if (${sessionScope.melding} == 0) {
+                    //alert("Niets te melden");
+                }
+                else if(${sessionScope.melding} == 1){
+                    alert("Status is gewijzigd");
+                }
+                else if(${sessionScope.melding} == 2){
+                    alert("Testresultaat beschikbaar");
+                }
+            }
+        }
+        updateMelding();
     </script> 
     <br>
     <form action="../ResController" method="Post">       

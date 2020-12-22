@@ -34,6 +34,7 @@
                 <option value="${test.tid}"> ${test.tid} </option> 
             </c:forEach>                    
         </select>
+        
         <label id = "TestResultaat"> </label>
         
         
@@ -88,6 +89,23 @@
        
       
         </script>
+         <script>
+        function updateMelding(){
+            if (${sessionScope.melding} == null) {
+            } else {
+                if (${sessionScope.melding} == 0) {
+                    //alert("Niets te melden");
+                }
+                else if(${sessionScope.melding} == 1){
+                    alert("Status is gewijzigd");
+                }
+                else if(${sessionScope.melding} == 2){
+                    alert("Testresultaat beschikbaar");
+                }
+            }
+        }
+        updateMelding();
+    </script> 
         <br><br>
         <form action="../ResController" method="Post">       
                 <input type="hidden" name="sub" value="burger">

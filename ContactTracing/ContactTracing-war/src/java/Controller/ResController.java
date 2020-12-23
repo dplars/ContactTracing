@@ -97,7 +97,7 @@ public class ResController extends HttpServlet {
             case "registreer":    
                 gotoPage("registreer.jsp",request,response);
                 break;
-            case "burger":   
+            case "burger":  
                 gotoPage("burger/burger.jsp",request,response);
                 break;
             case "arts":   
@@ -208,9 +208,6 @@ public class ResController extends HttpServlet {
         }
     }
     public void setMelding(HttpServletRequest request){
-        System.out.println("Start setMelding");
-        System.out.println("Start setMelding");
-        System.out.println("Start setMelding");
         
         HttpSession sessie = request.getSession(true);    
         int id = (int)sessie.getAttribute("id");
@@ -218,11 +215,11 @@ public class ResController extends HttpServlet {
         System.out.println("Melding  zonet gevonden:"+melding);
         sessie.setAttribute("melding",melding);
         dbbean.setMelding(id,0);
-        System.out.println("Melding gezet:"+sessie.getAttribute("melding"));
-        System.out.println("Melding gezet:"+sessie.getAttribute("melding"));
-        System.out.println("Melding gezet:"+sessie.getAttribute("melding"));
     }
     public void setSessionId(HttpServletRequest request){
+        System.out.println("Start setSessionId");
+        System.out.println("Start setSessionId");
+        System.out.println("Start setSessionId");
         HttpSession sessie = request.getSession(true);    
         Principal user;
         user = request.getUserPrincipal();
@@ -272,5 +269,4 @@ public class ResController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
 }

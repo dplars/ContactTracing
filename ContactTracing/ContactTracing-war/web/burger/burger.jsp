@@ -23,6 +23,7 @@
 </head> 
   
 <body> 
+    
     <div class="container" style="margin-top: 10%">
     <div class="row">
 		<div class="span12">
@@ -52,50 +53,8 @@
     </form>
     
   
-    <script> 
-        var namen = []; 
-        var Teles = [];
-        var bids = [];
-        <c:forEach items="${burgersNaam}" var="naam">
-            namen.push("${naam}");
-        </c:forEach>
-        
-        <c:forEach items="${burgersTele}" var="Tele">
-            Teles.push("${Tele}");
-        </c:forEach>
-        <c:forEach items="${burgersBid}" var="naam">
-            bids.push("${naam}");
-        </c:forEach>
-        function zoek() { 
-            naam = (document.getElementById('naam').value).toLowerCase();;
-            
-            var options = "";
-            var arrayLength = namen.length;
-            
-            for (var i = 0; i < arrayLength; i++) {
-                entry = namen[i] +":"+ Teles[i];
-                if(((entry.toLowerCase()).indexOf(naam) !== -1) && (${id} !=bids[i])){
-                    options+=("<option value = '"+bids[i]+ "'>"+entry+"</option>");
-                }
-            }
-            document.getElementById('burgers').innerHTML  = options; 
-        } 
-        zoek();
-    </script> 
-    <script>
-        function updateStatus(){
-            if(${sessionScope.score}>0){
-                document.getElementById('STATUS').innerHTML  = "<p style='color:red;display:inline;'>Onveilig </p>";
-            }
-            else{
-                document.getElementById('STATUS').innerHTML = "<p style='color:green;display:inline;'>Veilig</p>"
-            }
-        }
-        updateStatus();
-    </script> 
     <jsp:include page="../footer.jsp"/>
                 </div></div></div>
-
 </body> 
     
     

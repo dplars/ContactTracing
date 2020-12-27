@@ -1,6 +1,6 @@
 <%-- 
-    Document   : test
-    Created on : Nov 3, 2020, 5:44:12 PM
+    Document   : errorForbidden
+    Created on : Dec 8, 2020, 12:57:39 PM
     Author     : dehan
 --%>
 
@@ -17,6 +17,16 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div class="container" style="margin-top: 10%">
+    <div class="row">
+		<div class="span12">
+                    <div id="legend">
+			      <legend class="">Forbidden</legend>
+                    </div>
+                    <form action="../ResController" method="Post">       
+                                    <input type="hidden" name="sub" value="afbreken">
+                                    <input type="Submit" value="Terug">
+                    </form>
+                </div></div></div>
     </body>
 </html>

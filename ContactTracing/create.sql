@@ -44,6 +44,7 @@ CREATE TABLE burger (
   naam varchar(22),
   score int,
   telefoonnummer varchar(22),
+  melding int,
   PRIMARY KEY (bid)
 ) ;
 
@@ -58,28 +59,48 @@ VALUES (1, 1), (2, 2);
 
 INSERT INTO test (tid, testresultaat, pid)
 VALUES
-	(1, 0, 3),
+	(1, 1, 1),
 	(2, 0, 2),
-	(3, 0, 1),
+	(3, 0, 3),
 	(4, 0, 5);
 
 insert into gebruikers values ('jef', 'jf');
 insert into gebruikers values ('jos', 'js');
+insert into gebruikers values ('bert', 'bt');
+insert into gebruikers values ('thomas', 'ts');
+
 insert into gebruikers values ('louis', 'ls');
 insert into gebruikers values ('tim', 'tm');
+
 insert into gebruikers values ('sara', 'sa');
 
-INSERT INTO burger (gebruikersnaam,bid, naam, score, telefoonnummer)
+INSERT INTO burger (gebruikersnaam,bid, naam, score, telefoonnummer,melding)
 VALUES
-	('jef',1, 'Jef', 0, '0'),
-	('jos',2, 'Jos', 0, '948372784'),
-	('louis',3, 'Louis', 0, '0'),
-	('tim',4, 'Tim', 1, '0'),
-	('sara',5, 'Sara', 0, '458392093');
+	('jef',1, 'Jef', 0, '0440126',0),
+	('jos',2, 'Jos', 0, '948372784',0),
+        ('bert',3, 'Bert', 0, '54651231',0),
+        ('thomas',4, 'Thomas',1, '490108',0),
+	('sara',5, 'Sara', 0, '458392093',0);
 
+
+INSERT INTO contact (cid,persoon1,persoon2,type)
+VALUES
+        (1,1,2,1),
+        (2,1,2,2),
+        (3,1,2,3),
+        (4,3,4,1),
+        (5,5,2,1),
+        (6,1,4,2),
+        (7,3,2,2),
+        (8,2,3,3),
+        (9,4,2,3);
 
 insert into groepen values ('jef', 'burger' );
 insert into groepen values ('jos', 'burger' );
+insert into groepen values ('bert', 'burger' );
+insert into groepen values ('thomas', 'burger' );
+
 insert into groepen values ('louis', 'arts' );
 insert into groepen values ('tim', 'arts' );
+
 insert into groepen values ('sara', 'admin' );

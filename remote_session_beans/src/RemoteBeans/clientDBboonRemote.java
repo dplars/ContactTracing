@@ -8,12 +8,11 @@ package RemoteBeans;
 import javax.ejb.Remote;
 
 /**
- *
  * @author dehan
  */
 @Remote
 public interface clientDBboonRemote {
      public long aantalBurgers();
-      public long aantalContacten(int Type);
-       public long aantalTesten();
+     public long aantalContacten(int Type);
+     public long aantalTesten();
 }

@@ -93,24 +93,21 @@ public class ResController extends HttpServlet {
     String msg;
     //SessionContext ctx = null;
     switch (request.getParameter("sub")) {
+            
             case "registreer":    
                 gotoPage("registreer.jsp",request,response);
                 break;
-            case "burger":   
+            case "burger":  
                 gotoPage("burger/burger.jsp",request,response);
                 break;
             case "arts":   
                 gotoPage("arts/arts.jsp",request,response);
                 break;
-            case "doorgaan":
-                setSessionId(request);
-    
-                System.out.println("bij doorgaan gekomen");
-                // komende van arts.jsp, gaande naar bevestig.jsp
+            case "doorgaan": // komende van arts.jsp, gaande naar bevestig.jsp
                 testnr = Integer.parseInt(request.getParameter("testnr"));
                 testResultaat = request.getParameter("testresultaat");
+                
                 // gegevens opslaan in session variabelen
-               
                 sessie.setAttribute("testnr", testnr); 
                 sessie.setAttribute("testResultaat", testResultaat);
                 
@@ -173,12 +170,14 @@ public class ResController extends HttpServlet {
                 gotoPage("arts/arts.jsp", request, response);
                 break;
                 
-            case "NieuwContact":
+            case "NieuwContact":              
                 int ID1 = (int) sessie.getAttribute("id");
                 int typeContact = Integer.parseInt(request.getParameter("typeContact"));
                 int contactId = Integer.parseInt(request.getParameter("Sburger"));
                 System.out.println("Gegeven:\n"+"\tType:"+typeContact+"\tContactID:"+contactId+"\tEigenID:"+ID1);
                 dbbean.nieuwContact(ID1,contactId,typeContact);
+                
+                setMelding(request);
                 gotoPage("burger/contact.jsp", request, response);
                 break;
             case "nieuweTest":
@@ -188,6 +187,7 @@ public class ResController extends HttpServlet {
                 break;
             case "burgerContact":
                 setSessionId(request);
+                setMelding(request);
                 gotoPage("burger/contact.jsp", request, response);
                 break;
             case "burgerTest":
@@ -195,8 +195,7 @@ public class ResController extends HttpServlet {
                 gotoBurgerTest(request, response);
                 break;
             case "burgerStatus":
-                setSessionId(request);
-                           
+                setSessionId(request);  
                 gotoBurgerStatus(request, response);
                 break;
             case "nieuwAccount":
@@ -210,7 +209,19 @@ public class ResController extends HttpServlet {
                 break;
         }
     }
+    public void setMelding(HttpServletRequest request){
+        
+        HttpSession sessie = request.getSession(true);    
+        int id = (int)sessie.getAttribute("id");
+        int melding = dbbean.getMelding(id);
+        System.out.println("Melding  zonet gevonden:"+melding);
+        sessie.setAttribute("melding",melding);
+        dbbean.setMelding(id,0);
+    }
     public void setSessionId(HttpServletRequest request){
+        System.out.println("Start setSessionId");
+        System.out.println("Start setSessionId");
+        System.out.println("Start setSessionId");
         HttpSession sessie = request.getSession(true);    
         Principal user;
         user = request.getUserPrincipal();
@@ -228,9 +239,12 @@ public class ResController extends HttpServlet {
             System.out.println("tid:"+t.getTid());
         }
         getServletContext().setAttribute("testLijst",testLijst);
+        
+        setMelding(request);
         gotoPage("burger/test.jsp", request, response);
     }
     public void gotoBurgerStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        setMelding(request);
         HttpSession sessie = request.getSession(true);
         int id = (int) sessie.getAttribute("id");
         int score = dbbean.getScore(id);
@@ -248,19 +262,13 @@ public class ResController extends HttpServlet {
         //RequestDispatcher view = request.getRequestDispatcher(page);
         //view.forward(request,response);
     }   
-    public void init(){
-                
+    public void init(){        
         System.out.println("init");
         List burgerLijst = dbbean.getSortedBurgers();
-        getServletContext().setAttribute("burgerLijst",burgerLijst);
- 
-        
-        System.out.println("Einde init");
-         
+        getServletContext().setAttribute("burgerLijst",burgerLijst); 
     }    
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
 }

@@ -28,6 +28,8 @@
         <h2>
         Nieuw contact
     </h2>
+                    
+                    
     Zoek contactpersoon(Op basis van deel van naam of telefoonnummer):<br>
     <input id="naam" type="text" name="naam" value="" >     
     <button onclick="zoek()"> 
@@ -89,9 +91,27 @@
         } 
         zoek();
     </script> 
+     <script>
+        function updateMelding(){
+            if (${sessionScope.melding} == null) {
+            } else {
+                if (${sessionScope.melding} == 0) {
+                    //alert("Niets te melden");
+                }
+                else if(${sessionScope.melding} == 1){
+                    alert("Status is gewijzigd");
+                }
+                else if(${sessionScope.melding} == 2){
+                    alert("Testresultaat beschikbaar");
+                }
+            }
+        }
+        updateMelding();
+    </script> 
+    <jsp:include page="../footer.jsp"/>
     </div>
     </div></div>
     </body>
     
-    <jsp:include page="../footer.jsp"/>
+    
 </html>

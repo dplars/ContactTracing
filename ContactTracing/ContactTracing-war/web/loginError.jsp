@@ -23,6 +23,10 @@
                     <div id="legend">
 			      <legend class="">Foutje</legend>
                     </div>
+                    <form action="../ResController" method="Post">       
+                                    <input type="hidden" name="sub" value="afbreken">
+                                    <input type="Submit" value="Terug">
+                    </form>
                 </div></div></div>
     </body>
 </html>

@@ -9,23 +9,38 @@
 <!DOCTYPE html>
 <html>
     <head>
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+       <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         
         <style>
+            label {
+                
+            }
             th, td {
                 vertical-align:top;
             }
         </style>
     </head>
     <body>
+        <div class="container" style="margin-top: 10%">
+    <div class="row">
+		<div class="span12">
+                    <div id="legend">
+			      <legend class="">Nieuw contact</legend>
+                    </div>
+    
         <h1 style="margin-bottem:10px;"> 
         <%--Huidige score: ${sessionScope.score} --%>
         Huidige status: <label id = "STATUS"><%--onderaan aangevullen --%></label> 
         </h1> 
         <br>
         
-        
+       
         <table border = "1" style="width:100%">
             <tr>
               <th>Nauwe contacten: <label id="cT1"></label></th>
@@ -116,10 +131,27 @@
                 document.getElementById('STATUS').innerHTML  = s;
             }
             else{
-                document.getElementById('STATUS').innerHTML = "<p style='color:green;display:inline;'>Veilig</p>"
+                document.getElementById('STATUS').innerHTML = "<label style='left: 290px; top: -32px; color: green; font-size: 40px; display: inline-block; position: relative;'>Veilig</label>"
             }
         }
         updateStatus();
+    </script> 
+    <script>
+        function updateMelding(){
+            if (${sessionScope.melding} == null) {
+            } else {
+                if (${sessionScope.melding} == 0) {
+                    //alert("Niets te melden");
+                }
+                else if(${sessionScope.melding} == 1){
+                    alert("Status is gewijzigd");
+                }
+                else if(${sessionScope.melding} == 2){
+                    alert("Testresultaat beschikbaar");
+                }
+            }
+        }
+        updateMelding();
     </script> 
     <br>
     <form action="../ResController" method="Post">       
@@ -128,4 +160,7 @@
         </form>
     </body>
     <jsp:include page="../footer.jsp"/>
+    
+    </div>
+    </div></div>
 </html>

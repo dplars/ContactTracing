@@ -14,16 +14,15 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
- *
- * @author larsdepauw
+ * Contact Tracing
+ * Loic Dehan en Lars de Pauw
  */
 @Stateless
 public class DBBean implements DBBeanLocal {
 
     @PersistenceContext private EntityManager em;
     
-    public DBBean() {
-    }
+    public DBBean() {}
     
     public String getTestBurgernaam(int testnr) {
         System.out.println("zoek burger van test");
@@ -35,8 +34,6 @@ public class DBBean implements DBBeanLocal {
             System.out.println("Test gevonden "+t.toString());
             System.out.println("Persoon nummer = " + t.getPid());
             em.merge(t);
-            
-            
             }
         catch (NoResultException e) {
             System.out.println("Geen Test gevonden");
@@ -90,11 +87,11 @@ public class DBBean implements DBBeanLocal {
                 for(Contact c: contacten) {
                     int pers1 = c.getPersoon1();
                     Burger b1 = (Burger) (em.createNamedQuery("Burger.findByBid").setParameter("bid", pers1).getSingleResult());
-                    b1.setScore(min(b1.getScore()+1, 2));    // verhoog score met 1
+                    b1.setScore(b1.getScore()+1);    // verhoog score met 1
                     em.persist(b1);
                 }
                 
-                b.setScore(min(b.getScore()+1, 2));
+                b.setScore(b.getScore()+1);
                 em.persist(b);
                 
             }
@@ -103,7 +100,7 @@ public class DBBean implements DBBeanLocal {
                 b.setScore(0);
                 em.persist(b);
             }
-
+            setMelding(pid,2);//2 -> uw testresultaat is beschikbaar
             //b.setScore(res);
             return true;
         }
@@ -178,30 +175,36 @@ public class DBBean implements DBBeanLocal {
             return 100;
         }
     }
-    public boolean isArts(int id){
-        System.out.println("Zoek arts met id:");
+    public int getMelding(int id){
+        System.out.println("Zoek Melding van burger met id:");
         System.out.println(id);
         try{
-            Object a = (em.createNamedQuery("Arts.findByAid").setParameter("aid", id).getSingleResult());
-            System.out.println("Arts gevonden ");
-            return true;
+            Integer melding = (Integer)(em.createNamedQuery("Burger.findMeldingByBid").setParameter("bid", id).getSingleResult());
+            System.out.println("Melding gevonden:"+melding);
+            return melding;
         } catch(NoResultException e) {
-            System.out.println("Geen arts ");
-            return false;
+            System.out.println("Geen burger ");
+            return 0;
         }
     }
-    public boolean isBurger(int id) {
-        System.out.println("Zoek burger met id:");
-        System.out.println(id);
-            
+    public boolean setMelding(int id,int val){
         try{
-            Object a = em.createNamedQuery("Burger.findByBid").setParameter("bid", id).getSingleResult();
-            System.out.println("Burger gevonden ");
+            Burger b1 = (Burger) (em.createNamedQuery("Burger.findByBid").setParameter("bid", id).getSingleResult());
+            b1.setMelding(val);    // verhoog score met 1
+            em.persist(b1);
             return true;
-        } catch(NoResultException e) {
-            System.out.println("Geen Burber ");
+        }
+        catch(NoResultException e){
+            System.out.println("Geen test gevonden");
+            System.out.println(e);
             return false;
         }
+        catch(Exception e){
+            System.out.println("Grote fout");
+            System.out.println(e);
+            return false;
+        }
+
     }
     public List getSortedBurgers(){
         return em.createNamedQuery("Burger.findSortedBurgers").getResultList();
@@ -235,8 +238,8 @@ public class DBBean implements DBBeanLocal {
             Burger b = (Burger) (em.createNamedQuery("Burger.findByBid").setParameter("bid", id1).getSingleResult());
             b.setScore(b.getScore()+1);
             em.persist(b);
+            setMelding(id1,1);
         }
-
     }
     
     public List alleContacten(int id) {
@@ -255,6 +258,7 @@ public class DBBean implements DBBeanLocal {
         try{
             System.out.println("Voor");
             Gebruikers g = (Gebruikers) em.createNamedQuery("Gebruikers.findByGebruikersnaam").setParameter("gebruikersnaam", name).getSingleResult();
+            System.out.println("Tussen/"+g);
             bid = (int) em.createNamedQuery("Burger.getBid").setParameter("gebruikersnaam", g).getSingleResult();
             System.out.println("Legit Gevonden bid:");
        

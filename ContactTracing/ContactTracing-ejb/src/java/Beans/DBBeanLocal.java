@@ -39,4 +39,6 @@ public interface DBBeanLocal {
 
     public int getBid(String name);
 
+    public void nieuwAccount(String type, String unaam, String naam, String telnr, String password);
+    
 }

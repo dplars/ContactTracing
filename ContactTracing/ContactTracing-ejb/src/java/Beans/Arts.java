@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Arts.findAll", query = "SELECT a FROM Arts a")
     , @NamedQuery(name = "Arts.findByAid", query = "SELECT a FROM Arts a WHERE a.aid = :aid")
+    , @NamedQuery(name = "Arts.laatsteAid", query = "SELECT max(a.aid) FROM Arts a ")
     , @NamedQuery(name = "Arts.findByNaam", query = "SELECT a FROM Arts a WHERE a.naam = :naam")})
 public class Arts implements Serializable {
 

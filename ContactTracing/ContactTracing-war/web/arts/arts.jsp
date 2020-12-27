@@ -55,15 +55,17 @@
         <form method="POST" action="../ResController" id="artsform">
             <a style="color:red;"><c:if test="${!empty sessionScope.error}">
                 ${sessionScope.error}<br>
+                <% request.getSession().setAttribute("error", null); %>
                 </c:if>
             </a>
             <a style="color:green;"><c:if test="${!empty sessionScope.msg}">
                 ${sessionScope.msg}<br>
+                <% request.getSession().setAttribute("msg", ""); %>
                 </c:if>
             </a>
                 
             <label for="testnr">Nummer van de test</label>
-            <input type="number" id="testnr" name="testnr" required 
+            <input type="number" id="testnr" name="testnr" min="1" required 
                    <c:if test="${!empty sessionScope.testnr}">
                        value="${sessionScope.testnr}"
                    </c:if>
@@ -77,8 +79,9 @@
             <input type="button" onclick="submit_form();" name="sub" value="doorgaan"/>
             <input type="submit" style="display:none;" id="submitbutton" name="sub" value="doorgaan"/>
         </form>
+        <jsp:include page="../footer.jsp"/>
                 </div></div></div>
     </body>
     
-  <jsp:include page="../footer.jsp"/>
+  
 </html>

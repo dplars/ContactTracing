@@ -268,4 +268,74 @@ public class DBBean implements DBBeanLocal {
         System.out.println("Gevonden bid hier:"+bid);
         return bid;
     }
+    
+    public void nieuwAccount(String type, String unaam, String naam, String telnr, String password) {
+        // gebruiker toevoegen aan Gebruikers
+        System.out.println("passwoord meegegeven aan voeg gebruiker toe: "+password);
+        Gebruikers gebr = voegGebruikerToe(unaam, password);
+        System.out.println("Gebruiker toegevoegd: "+gebr);
+        
+        // gebruiker toevoegen aan groep
+        voegToeAanGroep(unaam, type);
+        System.out.println("Gebruiker aan groep toegevoegd");
+        
+        if (type == "Arts") {
+            Arts a = voegArtsToe();
+            System.out.println("Arts toegevoegd: "+a);
+        }
+        else {
+            Burger b = voegBurgerToe(gebr, naam, telnr);
+            System.out.println("Burger toegevoegd: "+b);
+        }
+        
+    }
+    
+    private Gebruikers voegGebruikerToe(String unaam, String password) {
+        // nieuwe gebruiker aanmaken
+        Gebruikers g = new Gebruikers();
+        g.setGebruikersnaam(unaam);
+        System.out.println("passwoord ingeven: "+password);
+        g.setPaswoord(password);
+        // gebruiker aan database toevoegen
+        em.persist(g);
+        return g;
+    }
+    
+    private void voegToeAanGroep(String unaam, String groep) {
+        // nieuwe groep entry aanmaken
+        Groepen g = new Groepen();
+        g.setGebruikersnaam(unaam);
+        g.setGroep(groep);
+        // voeg gebruiker toe aan groep in database
+        em.persist(g);
+    }
+    
+    private Burger voegBurgerToe(Gebruikers unaam, String naam, String telnr) {
+        // zoek hoogste bid om een nieuw bid toe te wijzen
+        int prevBid = (int) em.createNamedQuery("Burger.laatsteBid").getSingleResult();
+        int newBid = prevBid+1;
+        
+        Burger b = new Burger();
+        b.setGebruikersnaam(unaam);
+        b.setBid(newBid);
+        b.setNaam(naam);
+        b.setScore(0);
+        b.setTelefoonnummer(telnr);
+        b.setMelding(0);
+        
+        em.persist(b);
+        return b;
+    }
+    
+    private Arts voegArtsToe() {
+        int prevAid = (int) em.createNamedQuery("Arts.laatsteAid").getSingleResult();
+        int newAid = prevAid +1;
+        
+        Arts a = new Arts();
+        a.setAid(newAid);
+        a.setNaam(newAid);
+        
+        em.persist(a);
+        return a;
+    }
 }

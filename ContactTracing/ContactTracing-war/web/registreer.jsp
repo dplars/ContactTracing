@@ -28,14 +28,14 @@
             <form action="<c:url value='ResController'/>" method="Post">
                
                 <input type="radio" id="burger" name="type" value="burger" checked="checked">
-                <label for="burger">Burger</label><br>
-                <input type="radio" id="arts" name="type" value="dokter">
+                <label for="burger">Burger</label>
+                <input type="radio" id="arts" name="type" value="arts">
                 <label for="dokter">Dokter</label><br>
 
                 
             Gebruikersnaam: <input type="text" name="unaam" value=""><br>
             Naam:<input type="text" name="naam" value=""><br>
-            Telefoonnr.<input type="text" name="nr" value="">
+            Telefoonnr:<input type="text" name="nr" value=""><br>
             Wachtwoord:<input type="password" name="pw">
             <input type="hidden" name="sub" value="nieuwAccount"><br>
             <input type="Submit" value="Ok">

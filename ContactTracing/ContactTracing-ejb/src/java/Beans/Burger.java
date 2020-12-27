@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Burger.findMeldingByBid", query = "SELECT b.melding FROM Burger b WHERE b.bid = :bid") 
     , @NamedQuery(name = "Burger.findSortedBurgers", query = "SELECT b FROM Burger b ORDER BY b.naam")
     , @NamedQuery(name = "Burger.findAantal", query = "SELECT count(b) FROM Burger b")
+    , @NamedQuery(name = "Burger.laatsteBid", query = "SELECT max(b.bid) FROM Burger b ")
     , @NamedQuery(name = "Burger.getBid", query = "SELECT b.bid FROM Burger b WHERE b.gebruikersnaam = :gebruikersnaam")})
 public class Burger implements Serializable {
 

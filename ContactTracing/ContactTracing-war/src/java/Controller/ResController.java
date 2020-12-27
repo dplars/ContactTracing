@@ -200,6 +200,15 @@ public class ResController extends HttpServlet {
                 break;
             case "nieuwAccount":
                 
+                //public void nieuwAccount(String type, String unaam, String naam, String telnr, String password) {
+                String type = request.getParameter("type");
+                String unaam = request.getParameter("unaam");
+                String naam = request.getParameter("naam");
+                String telnr = request.getParameter("nr");
+                String password = request.getParameter("pw");
+                
+                // gegevens verwerken en gebruiker aanmaken. 
+                dbbean.nieuwAccount(type, unaam, naam, telnr, password);
                 
                 response.sendRedirect("index.jsp");
                 break;

@@ -27,18 +27,16 @@
         <!--<h1>Registreren:</h1>-->
             <form action="<c:url value='ResController'/>" method="Post">
                
-                <input type="radio" id="male" name="type" value="burger" checked="checked">
+                <input type="radio" id="burger" name="type" value="burger" checked="checked">
                 <label for="burger">Burger</label><br>
-                <input type="radio" id="female" name="type" value="dokter">
+                <input type="radio" id="arts" name="type" value="dokter">
                 <label for="dokter">Dokter</label><br>
 
                 
-                
+            Gebruikersnaam: <input type="text" name="unaam" value=""><br>
             Naam:<input type="text" name="naam" value=""><br>
-            Adres:<input type="text" name="Adres" value=""><br>
-            Gemeente:<input type="text" name="GemeenteID" value="">
-            <input type="text" name="Gemeente" value=""><br>
             Telefoonnr.<input type="text" name="nr" value="">
+            Wachtwoord:<input type="password" name="pw">
             <input type="hidden" name="sub" value="nieuwAccount"><br>
             <input type="Submit" value="Ok">
             

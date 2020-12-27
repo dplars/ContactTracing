@@ -200,6 +200,8 @@ public class ResController extends HttpServlet {
                 gotoBurgerStatus(request, response);
                 break;
             case "nieuwAccount":
+                
+                
                 response.sendRedirect("index.jsp");
                 break;
             case "afbreken":  

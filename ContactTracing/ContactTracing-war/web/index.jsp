@@ -23,19 +23,15 @@
                     <div id="legend">
 			      <legend class="">Index</legend>
                     </div>
-             Burger: Jef en jos
-                thomas score 1
-             Arts: louis
-
         
         </form> 
-        <h2>Registreer? (moet misschien niet?)</h2>
+        <h2>Registreer</h2>
          <form action="ResController" method="Post">       
                 <input type="hidden" name="sub" value="registreer">
-                <input type="Submit" value="registreer?">
+                <input type="Submit" value="registreer">
         </form>
         
-        Inloggen als:
+        <h2>Inloggen als:</h2>
          <form action="ResController" method="Post">       
                 <input type="hidden" name="sub" value="burger">
                 <input type="Submit" value="Burger?">

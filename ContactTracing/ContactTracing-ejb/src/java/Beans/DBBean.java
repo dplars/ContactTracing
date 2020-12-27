@@ -277,17 +277,19 @@ public class DBBean implements DBBeanLocal {
         
         // gebruiker toevoegen aan groep
         voegToeAanGroep(unaam, type);
-        System.out.println("Gebruiker aan groep toegevoegd");
-        
-        if (type == "Arts") {
-            Arts a = voegArtsToe();
-            System.out.println("Arts toegevoegd: "+a);
+        System.out.println("Gebruiker aan groep toegevoegd: Type/"+type);
+        if (type.equals("arts")) {
+            int prevAid = (int) em.createNamedQuery("Arts.laatsteAid").getSingleResult();
+            int newAid = prevAid +1;
+            Arts a = new Arts();
+            a.setAid(newAid);
+            a.setNaam(newAid);
+            em.persist(a);
         }
         else {
-            Burger b = voegBurgerToe(gebr, naam, telnr);
-            System.out.println("Burger toegevoegd: "+b);
+            voegBurgerToe(gebr, naam, telnr);
+            System.out.println("Burger toegevoegd: ");
         }
-        
     }
     
     private Gebruikers voegGebruikerToe(String unaam, String password) {
@@ -310,11 +312,10 @@ public class DBBean implements DBBeanLocal {
         em.persist(g);
     }
     
-    private Burger voegBurgerToe(Gebruikers unaam, String naam, String telnr) {
+    private void voegBurgerToe(Gebruikers unaam, String naam, String telnr) {
         // zoek hoogste bid om een nieuw bid toe te wijzen
         int prevBid = (int) em.createNamedQuery("Burger.laatsteBid").getSingleResult();
         int newBid = prevBid+1;
-        
         Burger b = new Burger();
         b.setGebruikersnaam(unaam);
         b.setBid(newBid);
@@ -324,18 +325,5 @@ public class DBBean implements DBBeanLocal {
         b.setMelding(0);
         
         em.persist(b);
-        return b;
-    }
-    
-    private Arts voegArtsToe() {
-        int prevAid = (int) em.createNamedQuery("Arts.laatsteAid").getSingleResult();
-        int newAid = prevAid +1;
-        
-        Arts a = new Arts();
-        a.setAid(newAid);
-        a.setNaam(newAid);
-        
-        em.persist(a);
-        return a;
     }
 }

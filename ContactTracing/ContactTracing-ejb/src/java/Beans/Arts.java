@@ -9,12 +9,11 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -22,22 +21,22 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author dehan
  */
 @Entity
-@Table(name = "arts")
+@Table(name = "ARTS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Arts.findAll", query = "SELECT a FROM Arts a")
     , @NamedQuery(name = "Arts.findByAid", query = "SELECT a FROM Arts a WHERE a.aid = :aid")
-    , @NamedQuery(name = "Arts.laatsteAid", query = "SELECT max(a.aid) FROM Arts a ")
-    , @NamedQuery(name = "Arts.findByNaam", query = "SELECT a FROM Arts a WHERE a.naam = :naam")})
+    , @NamedQuery(name = "Arts.findByNaam", query = "SELECT a FROM Arts a WHERE a.naam = :naam")
+    , @NamedQuery(name = "Arts.laatsteAid", query = "SELECT max(a.aid) FROM Arts a ")})
 public class Arts implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "aid")
+    @NotNull
+    @Column(name = "AID")
     private Integer aid;
-    @Column(name = "naam")
+    @Column(name = "NAAM")
     private Integer naam;
 
     public Arts() {

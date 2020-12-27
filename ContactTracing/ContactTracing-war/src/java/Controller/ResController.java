@@ -209,7 +209,11 @@ public class ResController extends HttpServlet {
                 
                 // gegevens verwerken en gebruiker aanmaken. 
                 dbbean.nieuwAccount(type, unaam, naam, telnr, password);
+                System.out.println("Einde nAccount2");
                 
+                List burgerLijst = dbbean.getSortedBurgers();
+                getServletContext().setAttribute("burgerLijst",burgerLijst);
+        
                 response.sendRedirect("index.jsp");
                 break;
             case "afbreken":  

@@ -57,7 +57,7 @@ public class View extends JFrame  implements ActionListener{
 
         aantalTest = new JLabel("Aantal Tests:");
         testVeld = new JLabel("x");
-        GridLayout g = new GridLayout(5,2);
+        GridLayout g = new GridLayout(4,2);
         g.setHgap(10);
         pane.setLayout(g);
         
@@ -70,25 +70,29 @@ public class View extends JFrame  implements ActionListener{
         this.pack();
      
         this.setSize(500,500);
+        
+        update();
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.knop)
         {
-            long aantalBurgers = DBboon.aantalBurgers();
-            
-            this.burgersVeld.setText(Long.toString(aantalBurgers));
-                 
-            long aant1 = DBboon.aantalContacten(1);
-            long aant2 = DBboon.aantalContacten(2);
-            long aant3 = DBboon.aantalContacten(3);
-            
-            contactenVeld.updateTypes(aant1,aant2,aant3);
-            
-            long aantTesten = DBboon.aantalTesten();
-            this.testVeld.setText(Long.toString(aantTesten));
-           
+           update();
         }
+    }
+    public void update(){
+        long aantalBurgers = DBboon.aantalBurgers();
+            
+        this.burgersVeld.setText(Long.toString(aantalBurgers));
+                 
+        long aant1 = DBboon.aantalContacten(1);
+        long aant2 = DBboon.aantalContacten(2);
+        long aant3 = DBboon.aantalContacten(3);
+            
+        contactenVeld.updateTypes(aant1,aant2,aant3);
+           
+        long aantTesten = DBboon.aantalTesten();
+        this.testVeld.setText(Long.toString(aantTesten));
     }
     private void initKnop(){
         this.knop.addActionListener(this);

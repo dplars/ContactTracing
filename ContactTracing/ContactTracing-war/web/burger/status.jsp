@@ -15,12 +15,9 @@
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Status</title>
         
         <style>
-            label {
-                
-            }
             th, td {
                 vertical-align:top;
             }
@@ -35,12 +32,10 @@
                     </div>
     
         <h1 style="margin-bottem:10px;"> 
-        <%--Huidige score: ${sessionScope.score} --%>
         Huidige status: <label id = "STATUS"><%--onderaan aangevullen --%></label> 
         </h1> 
         <br>
         
-       
         <table border = "1" style="width:100%">
             <tr>
               <th>Nauwe contacten: <label id="cT1"></label></th>
@@ -48,6 +43,7 @@
               <th>Veilige contacten: <label id="cT3"></label></th>
             </tr>
             <tr>
+              <%--Tabel wordt aangevuld met updateTabel()--%>
               <td>
                   <table id = "T1"></table>
               </td>
@@ -58,7 +54,6 @@
                   <table id = "T3"> </table>
               </td>
             </tr>
-
         </table>
         
         <script>
@@ -70,11 +65,11 @@
             Teles.push("${b.telefoonnummer}");
             bids.push("${b.bid}");
         </c:forEach>
-            
+           
+        //contacten van elk type
         var c1 = [];
         var c2 = [];
         var c3 = [];
-        var count = 0;
         <c:forEach items="${contacten}" var="c">
             entry = ""
             for (var i = 0; i < bids.length; i++) {
@@ -82,7 +77,7 @@
                     entry = namen[i] +":"+ Teles[i];
                 }
             }    
-            if("${c.type}" == "1"){
+            if(${c.type} == 1){
                 c1.push(entry);
             }
             else if(${c.type} == 2){
@@ -96,8 +91,8 @@
         <script>
         function updateTabel(){
             var inhoud
-            
             inhoud= "";
+            //Plaats de contacen in de kolommen per type
             for (var i = 0; i < c1.length; i++) {
                 inhoud+=("<tr><td>"+c1[i]+ "</td></tr>");
             }
@@ -115,6 +110,7 @@
             }
             document.getElementById('T3').innerHTML  = inhoud; 
             
+            //aantal contacten per kolom
             document.getElementById('cT1').innerHTML  = c1.length; 
             document.getElementById('cT2').innerHTML  = c2.length; 
             document.getElementById('cT3').innerHTML  = c3.length; 
@@ -123,16 +119,14 @@
     </script>
      <script>
         function updateStatus(){
-            
             if(${sessionScope.score}>0){
-                s="<p style='color:red;display:inline;'>Onveilig </p><br>Vraag een test aan:";        
-                s += "<form action='../ResController' method='Post'><input type='hidden' name='sub' value='burgerTest'><input type='Submit'value='Test'></form>";
-                
-                document.getElementById('STATUS').innerHTML  = s;
+                s="<label style='left: 290px; top: -32px; color: red; font-size: 40px; display: inline-block; position: relative;'>Onveilig</label>"      
+                s+="<form action='../ResController' method='Post'><input type='hidden' name='sub' value='burgerTest'><input type='Submit'value='Test'></form>";
             }
             else{
-                document.getElementById('STATUS').innerHTML = "<label style='left: 290px; top: -32px; color: green; font-size: 40px; display: inline-block; position: relative;'>Veilig</label>"
+                s = "<label style='left: 290px; top: -32px; color: green; font-size: 40px; display: inline-block; position: relative;'>Veilig</label>"
             }
+            document.getElementById('STATUS').innerHTML  = s;
         }
         updateStatus();
     </script> 

@@ -159,7 +159,7 @@ public class DBBean implements DBBeanLocal {
         
     }
     public List getBurgerTests(int pid){
-        System.out.println("zoek test van pid:"+pid);
+        System.out.println("zoek tests van pid:"+pid);
         return em.createNamedQuery("Test.findBurgerTests").setParameter("pid", pid).getResultList();
     }
     
@@ -190,7 +190,7 @@ public class DBBean implements DBBeanLocal {
     public boolean setMelding(int id,int val){
         try{
             Burger b1 = (Burger) (em.createNamedQuery("Burger.findByBid").setParameter("bid", id).getSingleResult());
-            b1.setMelding(val);    // verhoog score met 1
+            b1.setMelding(val);
             em.persist(b1);
             return true;
         }
@@ -204,12 +204,12 @@ public class DBBean implements DBBeanLocal {
             System.out.println(e);
             return false;
         }
-
     }
     public List getSortedBurgers(){
         return em.createNamedQuery("Burger.findSortedBurgers").getResultList();
     }
     public void nieuwContact(int id1,int id2,int type) {
+        //Zoek volgende contactId
         int ncid = 1;
         try{
             Integer lknr = (Integer)em.createNamedQuery("Contact.laatsteKnr").getSingleResult();
@@ -222,6 +222,7 @@ public class DBBean implements DBBeanLocal {
         System.out.println(id1);
         System.out.println(id2);
         System.out.println(type);
+
         Contact res = new Contact(ncid);
         res.setPersoon1(id1);
         res.setPersoon2(id2);
@@ -243,6 +244,7 @@ public class DBBean implements DBBeanLocal {
     }
     
     public List alleContacten(int id) {
+        //Zoek alle contacten van de gegeven burgerId
         List res = null;
         try{
             res = em.createNamedQuery("Contact.findByPersoon1").setParameter("persoon1", id).getResultList();
@@ -253,19 +255,16 @@ public class DBBean implements DBBeanLocal {
     }
 
     public int getBid(String name) {
+        //Zoek de burgerId op basis van de loginNaam
         System.out.println("Start getBid(");
         int bid = 0;
         try{
-            System.out.println("Voor");
             Gebruikers g = (Gebruikers) em.createNamedQuery("Gebruikers.findByGebruikersnaam").setParameter("gebruikersnaam", name).getSingleResult();
-            System.out.println("Tussen/"+g);
             bid = (int) em.createNamedQuery("Burger.getBid").setParameter("gebruikersnaam", g).getSingleResult();
-            System.out.println("Legit Gevonden bid:");
-       
         }catch(Exception e){
             System.out.println("Exception"+e);
         }
-        System.out.println("Gevonden bid hier:"+bid);
+        System.out.println("Gevonden bid:"+bid);
         return bid;
     }
     

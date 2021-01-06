@@ -21,8 +21,10 @@
     <div class="row">
 		<div class="span12">
                     <div id="legend">
-			      <legend class="">Forbidden</legend>
+			      <legend class="">Oeps! Geen toegang</legend>
                     </div>
+                    Gelieve met de juiste gegevens in te loggen.
+                    Klik op terug om de juiste functie aan te klikken.<br>
                     <form action="../ResController" method="Post">       
                                     <input type="hidden" name="sub" value="afbreken">
                                     <input type="Submit" value="Terug">

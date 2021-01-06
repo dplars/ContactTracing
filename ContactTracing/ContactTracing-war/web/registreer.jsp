@@ -24,26 +24,60 @@
                     <div id="legend">
 			      <legend class="">Registreren</legend>
                     </div>
-        <!--<h1>Registreren:</h1>-->
-            <form action="<c:url value='ResController'/>" method="Post">
-               
-                <input type="radio" id="burger" name="type" value="burger" checked="checked">
-                <label for="burger">Burger</label>
-                <input type="radio" id="arts" name="type" value="arts">
-                <label for="dokter">Dokter</label><br>
+        <!--<h1>Registreren:</h1>  style="width:200px; margin-left: auto; margin-right: auto"-->
+                <form class="form-horizontal" action="<c:url value='ResController'/>" method="Post">
+                    <fieldset>
+                        <div class="control-group">
+                            <label class="control-label" for="burger">Burger</label>
+                                <input type="radio" id="burger" name="type" value="burger" checked="checked" style="margin-left: 30px"><br>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="dokter">Dokter</label>
+                                <input type="radio" id="arts" name="type" value="arts" style="margin-left: 30px"><br>
+                        </div>
 
-                
-            Gebruikersnaam: <input type="text" name="unaam" value=""><br>
-            Naam:<input type="text" name="naam" value=""><br>
-            Telefoonnr:<input type="text" name="nr" value=""><br>
-            Wachtwoord:<input type="password" name="pw">
-            <input type="hidden" name="sub" value="nieuwAccount"><br>
-            <input type="Submit" value="Ok">
+                        <div class="control-group">
+                            <label class="control-label" for="unaam">Gebruikersnaam</label>
+                            <div class="controls">
+                                <input type="text" name="unaam" value="" class="input-xlarge"><br>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="naam">Naam</label>
+                            <div class="controls">
+                                <input type="text" name="naam" value="" class="input-xlarge"><br>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="nr">Telefoonnr</label>
+                            <div class="controls">
+                                <input type="text" name="nr" value="" class="input-xlarge"><br>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="pw" >Passwoord</label>
+                            <div class="controls">
+                                <input type="password" name="pw" class="input-xlarge">
+                            </div>
+                        </div>
+
+
+                        <div class="control-group">
+                            <div class="controls">
+                                <input type="hidden" name="sub" value="nieuwAccount"><br>
+                                <input type="Submit" value="Ok">
+                            </div>
+                        </div>
+                        
+                    </fieldset>
+                </form> 
+            <form action="ResController" method="Post" >       
+                                    <input type="hidden" name="sub" value="afbreken">
+                                    <input type="Submit" value="Terug">
+                        </form>
+
+
             
-            
-
-
-            </form> 
                 </div></div></div>
     </body>
 

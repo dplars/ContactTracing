@@ -292,6 +292,7 @@ public class DBBean implements DBBeanLocal {
         }
     }
     
+    // private omdat dit niet apart mag uitgevoerd worden, dan klopt het database systeem niet meer
     private Gebruikers voegGebruikerToe(String unaam, String password) {
         // nieuwe gebruiker aanmaken
         Gebruikers g = new Gebruikers();

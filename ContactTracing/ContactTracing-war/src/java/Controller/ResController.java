@@ -169,14 +169,19 @@ public class ResController extends HttpServlet {
                 }
                 gotoPage("arts/arts.jsp", request, response);
                 break;
-                
-            case "NieuwContact":              
+            case "burgerContact":
+                setSessionId(request);
+                setMelding(request);
+                gotoPage("burger/contact.jsp", request, response);
+                break;   
+            case "NieuwContact": 
+                //Contact toevoegen tussen ingelogde persoon, geselecteerde burger en type
                 int ID1 = (int) sessie.getAttribute("id");
-                int typeContact = Integer.parseInt(request.getParameter("typeContact"));
                 int contactId = Integer.parseInt(request.getParameter("Sburger"));
+                int typeContact = Integer.parseInt(request.getParameter("typeContact"));
                 System.out.println("Gegeven:\n"+"\tType:"+typeContact+"\tContactID:"+contactId+"\tEigenID:"+ID1);
                 dbbean.nieuwContact(ID1,contactId,typeContact);
-                
+
                 setMelding(request);
                 gotoPage("burger/contact.jsp", request, response);
                 break;
@@ -184,11 +189,6 @@ public class ResController extends HttpServlet {
                 id = (int)sessie.getAttribute("id");
                 dbbean.nieuweTest(id);
                 gotoBurgerTest(request, response);
-                break;
-            case "burgerContact":
-                setSessionId(request);
-                setMelding(request);
-                gotoPage("burger/contact.jsp", request, response);
                 break;
             case "burgerTest":
                 setSessionId(request);
@@ -199,14 +199,13 @@ public class ResController extends HttpServlet {
                 gotoBurgerStatus(request, response);
                 break;
             case "nieuwAccount":
-                
                 //public void nieuwAccount(String type, String unaam, String naam, String telnr, String password) {
                 String type = request.getParameter("type");
                 String unaam = request.getParameter("unaam");
                 String naam = request.getParameter("naam");
                 String telnr = request.getParameter("nr");
                 String password = request.getParameter("pw");
-                
+            
                 // gegevens verwerken en gebruiker aanmaken. 
                 dbbean.nieuwAccount(type, unaam, naam, telnr, password);
                 System.out.println("Einde nAccount2");
@@ -223,17 +222,13 @@ public class ResController extends HttpServlet {
         }
     }
     public void setMelding(HttpServletRequest request){
-        
         HttpSession sessie = request.getSession(true);    
         int id = (int)sessie.getAttribute("id");
         int melding = dbbean.getMelding(id);
-        System.out.println("Melding  zonet gevonden:"+melding);
         sessie.setAttribute("melding",melding);
         dbbean.setMelding(id,0);
     }
     public void setSessionId(HttpServletRequest request){
-        System.out.println("Start setSessionId");
-        System.out.println("Start setSessionId");
         System.out.println("Start setSessionId");
         HttpSession sessie = request.getSession(true);    
         Principal user;
@@ -270,8 +265,6 @@ public class ResController extends HttpServlet {
     public void gotoPage(String page,HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         System.out.println("Ga naar:"+page);
         response.sendRedirect(page);
-        //https://stackoverflow.com/questions/2047122/requestdispatcher-forward-vs-httpservletresponse-sendredirect#:~:text=The%20main%20important%20difference%20between,and%20it's%20visible%20to%20client.
-        
         //RequestDispatcher view = request.getRequestDispatcher(page);
         //view.forward(request,response);
     }   

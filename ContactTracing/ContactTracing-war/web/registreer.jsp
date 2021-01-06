@@ -33,10 +33,10 @@
                 <label for="dokter">Dokter</label><br>
 
                 
-            Gebruikersnaam: <input type="text" name="unaam" value=""><br>
-            Naam:<input type="text" name="naam" value=""><br>
-            Telefoonnr:<input type="text" name="nr" value=""><br>
-            Wachtwoord:<input type="password" name="pw">
+            Gebruikersnaam: <input type="text" name="unaam" value="" required><br>
+            Naam:<input type="text" name="naam" value="" required><br>
+            Telefoonnr:<input type="text" name="nr" value="" required><br>
+            Wachtwoord:<input type="password" name="pw" required>
             <input type="hidden" name="sub" value="nieuwAccount"><br>
             <input type="Submit" value="Ok">
             
@@ -44,6 +44,10 @@
 
 
             </form> 
+            <form action="ResController" method="Post">       
+                                    <input type="hidden" name="sub" value="afbreken">
+                                    <input type="Submit" value="Terug">
+            </form>
                 </div></div></div>
     </body>
 

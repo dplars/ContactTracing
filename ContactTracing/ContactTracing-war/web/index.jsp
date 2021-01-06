@@ -21,14 +21,14 @@
     <div class="row">
 		<div class="span12">
                     <div id="legend">
-			      <legend class="">Index</legend>
+			      <legend class="">Contact Tracing</legend>
                     </div>
         
         </form> 
         <h2>Registreer</h2>
          <form action="ResController" method="Post">       
                 <input type="hidden" name="sub" value="registreer">
-                <input type="Submit" value="registreer">
+                <input type="Submit" value="Registreer">
         </form>
         
         <h2>Inloggen als:</h2>

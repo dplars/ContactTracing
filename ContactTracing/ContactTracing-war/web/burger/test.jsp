@@ -26,17 +26,17 @@
                     <div id="legend">
 			      <legend class="">Test</legend>
                     </div>
-        <div id="aanvragen"></div>
+        <div id="aanvragen"><%--Wordt aangevuld in Aanvragen()--%></div>
         
         <br>
+        <%--Lijst van de testnummers--%>
         <select name="TestTid" id = "TestTid" onChange="resultaat()">
             <c:forEach var="test" items="${applicationScope.testLijst}" >
                 <option value="${test.tid}"> ${test.tid} </option> 
             </c:forEach>                    
         </select>
-        
-        <label id = "TestResultaat"> </label>
-        
+        <%--Resultaat van het geselecteerde testnummer--%>
+        <label id = "TestResultaat"><%--Wordt aangevuld in resultaat--%></label>
         
         <script>
         var Ttid = [];
@@ -46,10 +46,10 @@
             Tres.push("${test.testresultaat}");
         </c:forEach>
         function resultaat() { 
+            //Geselecteerde test
             tid = (document.getElementById('TestTid').value);
-    
+            //Zoek het bijhorende resultaat uit de testLijst
             var arrayLength = Ttid.length;
-            
             entry = 'Nog geen testen';
             for (var i = 0; i < arrayLength; i++) {
                 if(tid == Ttid[i]){
@@ -61,35 +61,31 @@
                     }
                     else{
                         entry = "In behandeling";
-                    }
-                   
+                    }  
                     break;
                 }
-                
             }
             document.getElementById('TestResultaat').innerHTML  = entry;
         } 
         resultaat();
-         </script>
-         <script>
-             s = ""
-             
-             if(Tres[0] != 0){
-                s +=  "<h1>Vraag een nieuwe test aan:</h1>";
-                s +="<form action='../ResController' method='Post'>  ";
-                s +="<input type='hidden' name='sub' value='nieuweTest'>";
-                s+="<input type='Submit' value='Nieuwe test'>";
-                s+="</form>";
-         
-             }
-             else{
-                 s +="<h1>Vorige test (Testnummer:"+Ttid[0]+") is nog in behandeling</h1>"; 
-             }
-             document.getElementById('aanvragen').innerHTML  = s;
-       
-      
-        </script>
-         <script>
+
+        function Aanvragen() { 
+             //Knop om aan te vragen enkel zichtbaar indien de vorige test is behandeld 
+            s = ""
+            if(Tres[0] != 0){
+               s+=  "<h1>Vraag een nieuwe test aan:</h1>";
+               s+="<form action='../ResController' method='Post'>  ";
+               s+="<input type='hidden' name='sub' value='nieuweTest'>";
+               s+="<input type='Submit' value='Nieuwe test'>";
+               s+="</form>";
+            }
+            else{
+                s +="<h1>Vorige test (Testnummer:"+Ttid[0]+") is nog in behandeling</h1>"; 
+            }
+            document.getElementById('aanvragen').innerHTML = s;
+        } 
+        Aanvragen();
+
         function updateMelding(){
             if (${sessionScope.melding} == null) {
             } else {
@@ -105,15 +101,15 @@
             }
         }
         updateMelding();
-    </script> 
+        </script>    
+        
         <br><br>
         <form action="../ResController" method="Post">       
                 <input type="hidden" name="sub" value="burger">
                 <input type="Submit" value="Terug">
         </form>
         <jsp:include page="../footer.jsp"/>
-                </body>
-    
-    
-    </div></div></div>
+        </div></div></div>
+</body>
+     
 </html>

@@ -234,10 +234,10 @@ public class DBBean implements DBBeanLocal {
         Burger contactPersoon = (Burger) (em.createNamedQuery("Burger.findByBid").setParameter("bid", id2).getSingleResult());
         int score = contactPersoon.getScore();
         System.out.println("Score van contactpersoon:"+score);
-        if(score>0 && (type == 1 || type == 2)){
+        if(score>0 && (type == 1 || type == 2)){   
             System.out.println("Gevaar");
             Burger b = (Burger) (em.createNamedQuery("Burger.findByBid").setParameter("bid", id1).getSingleResult());
-            b.setScore(b.getScore()+1);
+            b.setScore(b.getScore()+1);     // score van de burger die contact heeft aangemaakt verhogen als de contactpersoon besmet was 
             em.persist(b);
             setMelding(id1,1);
         }

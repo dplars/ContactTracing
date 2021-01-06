@@ -55,7 +55,7 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label" for="pw" >Passwoord</label>
+                            <label class="control-label" for="pw" >Wachtwoord</label>
                             <div class="controls">
                                 <input type="password" name="pw" class="input-xlarge">
                             </div>

@@ -94,6 +94,7 @@ public class ResController extends HttpServlet {
     //SessionContext ctx = null;
     switch (request.getParameter("sub")) {
             
+            // hoofd pagina index.jsp
             case "registreer":    
                 gotoPage("registreer.jsp",request,response);
                 break;
@@ -103,6 +104,8 @@ public class ResController extends HttpServlet {
             case "arts":   
                 gotoPage("arts/arts.jsp",request,response);
                 break;
+            
+            // arts.jsp
             case "doorgaan": // komende van arts.jsp, gaande naar bevestig.jsp
                 testnr = Integer.parseInt(request.getParameter("testnr"));
                 testResultaat = request.getParameter("testresultaat");
@@ -148,6 +151,7 @@ public class ResController extends HttpServlet {
                 }
                 System.out.println("einde van doorgaan");
                 break;
+            // bevestig.jsp
             case "ntcorrect":
                 msg = "Vul testresultaat opnieuw in";
                 sessie.setAttribute("msg", msg);
@@ -169,6 +173,8 @@ public class ResController extends HttpServlet {
                 }
                 gotoPage("arts/arts.jsp", request, response);
                 break;
+                
+            // burger.jsp
             case "burgerContact":
                 setSessionId(request);
                 setMelding(request);
@@ -177,19 +183,23 @@ public class ResController extends HttpServlet {
             case "NieuwContact": 
                 //Contact toevoegen tussen ingelogde persoon, geselecteerde burger en type
                 int ID1 = (int) sessie.getAttribute("id");
-                int contactId = Integer.parseInt(request.getParameter("Sburger"));
+                int contactId = Integer.parseInt(request.getParameter("Sburger"));  // id van de gezochte contactpersoon ophalen
                 int typeContact = Integer.parseInt(request.getParameter("typeContact"));
                 System.out.println("Gegeven:\n"+"\tType:"+typeContact+"\tContactID:"+contactId+"\tEigenID:"+ID1);
-                dbbean.nieuwContact(ID1,contactId,typeContact);
+                dbbean.nieuwContact(ID1,contactId,typeContact);     // contact toevoegen aan database
 
                 setMelding(request);
                 gotoPage("burger/contact.jsp", request, response);
                 break;
+                
+            // op burger status pagina op nieuwe test geklikt
             case "nieuweTest":
                 id = (int)sessie.getAttribute("id");
                 dbbean.nieuweTest(id);
                 gotoBurgerTest(request, response);
                 break;
+                
+            // burger.jsp
             case "burgerTest":
                 setSessionId(request);
                 gotoBurgerTest(request, response);
@@ -198,8 +208,10 @@ public class ResController extends HttpServlet {
                 setSessionId(request);  
                 gotoBurgerStatus(request, response);
                 break;
+                
+            // index.jsp
             case "nieuwAccount":
-                //public void nieuwAccount(String type, String unaam, String naam, String telnr, String password) {
+                
                 String type = request.getParameter("type");
                 String unaam = request.getParameter("unaam");
                 String naam = request.getParameter("naam");
@@ -215,6 +227,8 @@ public class ResController extends HttpServlet {
         
                 response.sendRedirect("index.jsp");
                 break;
+                
+            // in footer op terug geklikt
             case "afbreken":  
                 sessie.invalidate();
                 response.sendRedirect("index.jsp");
@@ -224,9 +238,9 @@ public class ResController extends HttpServlet {
     public void setMelding(HttpServletRequest request){
         HttpSession sessie = request.getSession(true);    
         int id = (int)sessie.getAttribute("id");
-        int melding = dbbean.getMelding(id);
+        int melding = dbbean.getMelding(id);    // kijken in de database of er meldingen zijn voor de gebruiker
         sessie.setAttribute("melding",melding);
-        dbbean.setMelding(id,0);
+        dbbean.setMelding(id,0);    // melding is gegeven, melding terug op 0 zetten
     }
     public void setSessionId(HttpServletRequest request){
         System.out.println("Start setSessionId");
@@ -240,6 +254,7 @@ public class ResController extends HttpServlet {
         sessie.setAttribute("naam", user.getName());
     }
     public void gotoBurgerTest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        // eerst testen ophalen voor naar de test pagina te gaan
         HttpSession sessie = request.getSession(true);
         int id = (int)sessie.getAttribute("id");
         List<Test> testLijst = dbbean.getBurgerTests(id);
@@ -252,6 +267,7 @@ public class ResController extends HttpServlet {
         gotoPage("burger/test.jsp", request, response);
     }
     public void gotoBurgerStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        // eerst contacten ophalen dan naar de status pagina gaan
         setMelding(request);
         HttpSession sessie = request.getSession(true);
         int id = (int) sessie.getAttribute("id");
@@ -264,7 +280,7 @@ public class ResController extends HttpServlet {
     }
     public void gotoPage(String page,HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
         System.out.println("Ga naar:"+page);
-        response.sendRedirect(page);
+        response.sendRedirect(page);        // send redirect om login te laten werken
         //RequestDispatcher view = request.getRequestDispatcher(page);
         //view.forward(request,response);
     }   
